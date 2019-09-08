@@ -239,6 +239,8 @@ echo "LANG=de_DE.UTF-8" > /etc/locale.conf
 touch /etc/vconsole.conf
 echo "KEYMAP=de-latin1" > /etc/vconsole.conf
 
+localectl --no-convert set-x11-keymap de pc105 nodeadkeys  # desktop keyboard layout
+
 echo "German localization done - OK"
 echo ""
 sleep 1
