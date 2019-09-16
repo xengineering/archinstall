@@ -1,0 +1,3 @@
+
+This feature branch is for enabling first stage to install git in the chroot
+environment and load all additional stages with a git clone.
