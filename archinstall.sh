@@ -31,7 +31,7 @@
 # Settings for the Script:
 
 DELAY=0.5
-BRANCH="devel"
+BRANCH="master"
 BASE_URL="https://github.com/xengineering/archinstall"
 RAW_BASE_URL="https://raw.githubusercontent.com/xengineering/archinstall/"
 
