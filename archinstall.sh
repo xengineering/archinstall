@@ -31,7 +31,8 @@
 # Settings for the Script:
 
 DELAY=0.5
-BRANCH="feature_01"
+BRANCH="devel"
+BASE_URL="https://github.com/xengineering/archinstall"
 RAW_BASE_URL="https://raw.githubusercontent.com/xengineering/archinstall/"
 
 
@@ -213,7 +214,7 @@ echo ""
 # Install git in live environment and clone archinstall repository
 
 pacman --noconfirm -Sy git
-cd /mnt/opt && git clone https://github.com/xengineering/archinstall
+cd /mnt/opt && git clone $BASE_URL
 cd /root
 mv /mnt/opt/archinstall /mnt/opt/archinstall.git
 cd /mnt/opt/archinstall.git && git checkout $BRANCH
