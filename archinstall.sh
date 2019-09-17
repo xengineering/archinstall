@@ -31,6 +31,9 @@
 # Settings for the Script:
 
 DELAY=0.5
+BRANCH="devel"
+BASE_URL="https://github.com/xengineering/archinstall"
+RAW_BASE_URL="https://raw.githubusercontent.com/xengineering/archinstall/"
 
 
 # Greetings and settings
@@ -208,110 +211,18 @@ sleep $DELAY
 echo ""
 
 
-# Deploy second Stage Script to new root
+# Install git in live environment and clone archinstall repository
 
-echo "Going to deploy second stage script for chroot environment ..."
-sleep $DELAY
-echo ""
+pacman --noconfirm -Sy git
+cd /mnt/opt && git clone $BASE_URL
+cd /root
+mv /mnt/opt/archinstall /mnt/opt/archinstall.git
+cd /mnt/opt/archinstall.git && git checkout $BRANCH
+cd /root
+echo "bash /opt/archinstall.git/bin/second_stage.sh $hostname ${disk_path}1" | arch-chroot /mnt
 
-cat > /mnt/root/secondstage.sh << EOL
-
-# Set timezone
-
-ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
-hwclock --systohc
-echo "Timezone set - OK"
-echo ""
-sleep 1
-
-
-# Localization - Greetings from Germany
-
-echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen
-echo "de_DE ISO-8859-1" >> /etc/locale.gen
-echo "de_DE@euro ISO-8859-15" >> /etc/locale.gen
-
-locale-gen
-
-touch /etc/locale.conf
-echo "LANG=de_DE.UTF-8" > /etc/locale.conf
-
-touch /etc/vconsole.conf
-echo "KEYMAP=de-latin1" > /etc/vconsole.conf
-
-# this just works after installing a desktop environment (e.g. xorg and xfce4 package)
-# localectl --no-convert set-x11-keymap de pc105 nodeadkeys  # desktop keyboard layout
-
-echo "German localization done - OK"
-echo ""
-sleep 1
-
-
-# Network Configuration
-
-touch /etc/hostname
-echo $hostname > /etc/hostname
-
-touch /etc/hosts
-echo "" >> /etc/hosts
-echo "127.0.0.1    localhost" >> /etc/hosts
-echo "::1       localhost" >> /etc/hosts
-
-echo "Network configuration done - OK"
-echo ""
-sleep 1
-
-
-# Initramfs
-
-# implement if needed ...
-
-
-# Set default Password
-
-echo "root:root" | chpasswd
-echo "Default password for user root set - OK"
-echo ""
-sleep 1
-
-
-# Install Grub
-
-pacman --noconfirm -Syu grub efibootmgr
-mount $boot_partition_path /mnt
-grub-install --target=x86_64-efi --efi-directory=/mnt --bootloader-id=GRUB --removable
-grub-mkconfig -o /boot/grub/grub.cfg
-umount $boot_partition_path
-echo "Grub bootloader installed - OK"
-echo ""
-sleep 1
-
-echo "Leaving chroot environment - OK"
-echo ""
-sleep 1
-
-EOL
-
-chmod 744 /mnt/root/secondstage.sh
-
-echo "Second stage script deployed - OK"
-echo ""
-sleep 1
-
-
-# Chroot to new System and launch second Stage
-
-echo "Running second stage in chroot ..."
-sleep $DELAY
-echo ""
-echo "/root/secondstage.sh" | arch-chroot /mnt
-
-
-# Removing second Stage Script and umount the Root Partition
-
-rm /mnt/root/secondstage.sh
-umount $root_partition_path
-echo "Removed second stage script and unmounted root partition - OK"
+cd /root && umount $root_partition_path
+echo "Unmounted root partition - OK"
 sleep $DELAY
 echo ""
 
