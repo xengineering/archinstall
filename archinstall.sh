@@ -31,6 +31,8 @@
 # Settings for the Script:
 
 DELAY=0.5
+BRANCH="feature_01"
+RAW_BASE_URL="https://raw.githubusercontent.com/xengineering/archinstall/"
 
 
 # Greetings and settings
