@@ -212,7 +212,7 @@ echo ""
 
 # Install git in live environment and clone archinstall repository
 
-pacman --noconfirm -S git
+pacman --noconfirm -Sy git
 cd /mnt/opt && git clone https://github.com/xengineering/archinstall
 cd /root
 mv /mnt/opt/archinstall /mnt/opt/archinstall.git
