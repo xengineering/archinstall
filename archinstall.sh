@@ -210,9 +210,32 @@ sleep $DELAY
 echo ""
 
 
-# Install git in new environment and clone archinstall repository
+# Install git in live environment and clone archinstall repository
 
-echo "pacman --noconfirm -Syu git" | arch-chroot /mnt
-echo "cd /opt && git clone https://github.com/xengineering/archinstall" | arch-chroot /mnt
-echo "cd /opt/archinstall && git checkout feature_01" | arch-chroot /mnt  # JUST FOR DEBUGGING!!!
-echo "bash /opt/archinstall/bin/test.sh" | arch-chroot /mnt
+pacman --noconfirm -Syu git
+cd /mnt/opt && git clone https://github.com/xengineering/archinstall
+cd /root
+mv /mnt/opt/archinstall /mnt/opt/archinstall.git
+cd /mnt/opt/archinstall.git && git checkout $BRANCH
+cd /root
+echo "bash /opt/archinstall/bin/second_stage.sh $hostname ${$disk_path}1" | arch-chroot /mnt
+
+cd /root && umount $root_partition_path
+echo "Removed second stage script and unmounted root partition - OK"
+sleep $DELAY
+echo ""
+
+
+# Final Messages
+
+cat << EOF
+#################################################################
+#                                                               #
+#     The default login is user root with password 'root'.      #
+#     You can now power off your machine with 'poweroff',       #
+#     remove the installation media and boot your new           #
+#     Arch Linux machine!                                       #
+#                                                               #
+#################################################################
+
+EOF

@@ -23,6 +23,8 @@
 
 hostname=$1
 boot_partition_path=$2
+echo "hostname: $hostname"
+echo "boot_partition_path: $boot_partition_path"
 
 
 # Localization
