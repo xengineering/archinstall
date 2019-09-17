@@ -218,10 +218,10 @@ cd /root
 mv /mnt/opt/archinstall /mnt/opt/archinstall.git
 cd /mnt/opt/archinstall.git && git checkout $BRANCH
 cd /root
-echo "bash /opt/archinstall/bin/second_stage.sh $hostname ${$disk_path}1" | arch-chroot /mnt
+echo "bash /opt/archinstall/bin/second_stage.sh $hostname ${disk_path}1" | arch-chroot /mnt
 
 cd /root && umount $root_partition_path
-echo "Removed second stage script and unmounted root partition - OK"
+echo "Unmounted root partition - OK"
 sleep $DELAY
 echo ""
 
