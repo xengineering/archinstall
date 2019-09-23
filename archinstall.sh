@@ -19,7 +19,7 @@
 
 
 #################################################################
-#                                                               #
+#                  _                 _        _ _       _       #
 #    __ _ _ __ ___| |__ (_)_ __  ___| |_ __ _| | |  ___| |__    #
 #   / _` | '__/ __| '_ \| | '_ \/ __| __/ _` | | | / __| '_ \   #
 #  | (_| | | | (__| | | | | | | \__ \ || (_| | | |_\__ \ | | |  #
@@ -31,8 +31,8 @@
 # Settings for the Script:
 
 DELAY=0.5
-BRANCH="master"
-BASE_URL="https://github.com/xengineering/archinstall"
+CLONE_BRANCH="master"
+BASE_URL="https://github.com/xengineering/archinstall/"
 RAW_BASE_URL="https://raw.githubusercontent.com/xengineering/archinstall/"
 
 
@@ -217,7 +217,7 @@ pacman --noconfirm -Sy git
 cd /mnt/opt && git clone $BASE_URL
 cd /root
 mv /mnt/opt/archinstall /mnt/opt/archinstall.git
-cd /mnt/opt/archinstall.git && git checkout $BRANCH
+cd /mnt/opt/archinstall.git && git checkout $CLONE_BRANCH
 cd /root
 echo "bash /opt/archinstall.git/bin/second_stage.sh $hostname ${disk_path}1" | arch-chroot /mnt
 

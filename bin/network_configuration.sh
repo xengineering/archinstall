@@ -18,6 +18,11 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+##############################
+#  network_configuration.sh  #
+##############################
+
+
 # Network Configuration
 
 touch /etc/hostname
@@ -31,4 +36,3 @@ echo "::1       localhost" >> /etc/hosts
 echo "Network configuration done - OK"
 echo ""
 sleep 1
-

@@ -18,6 +18,11 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+#####################
+#  localization.sh  #
+#####################
+
+
 # Set timezone
 
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
@@ -47,4 +52,3 @@ echo "KEYMAP=de-latin1" > /etc/vconsole.conf
 echo "German localization done - OK"
 echo ""
 sleep 1
-

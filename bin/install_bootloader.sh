@@ -18,6 +18,11 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+###########################
+#  install_bootloader.sh  #
+###########################
+
+
 # Install Grub
 
 pacman --noconfirm -Syu grub efibootmgr
@@ -32,4 +37,3 @@ sleep 1
 echo "Leaving chroot environment - OK"
 echo ""
 sleep 1
-

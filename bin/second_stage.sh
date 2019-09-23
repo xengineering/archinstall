@@ -18,8 +18,12 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-# Second Stage of archinstall
+#####################
+#  second_stage.sh  #
+#####################
 
+
+# Argument Processing
 
 hostname=$1
 boot_partition_path=$2
@@ -33,6 +37,7 @@ bash /opt/archinstall.git/bin/localization.sh
 
 
 # Network Configuration
+
 bash /opt/archinstall.git/bin/network_configuration.sh $hostname
 
 
