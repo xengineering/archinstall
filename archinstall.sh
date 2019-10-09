@@ -191,14 +191,14 @@ sleep $DELAY
 echo ""
 
 
-# Install Base and Linux Packages
+# Install basic Packages
 
-echo "Going to install base and linux packages ..."
+echo "Going to install basic packages ..."
 sleep $DELAY
 echo ""
-pacstrap /mnt base linux
+pacstrap /mnt base linux dhcpcd
 echo ""
-echo "Installed base and linux packages - OK"
+echo "Installed basic packages - OK"
 sleep $DELAY
 echo ""
 
