@@ -196,7 +196,7 @@ echo ""
 echo "Going to install basic packages ..."
 sleep $DELAY
 echo ""
-pacstrap /mnt base linux dhcpcd
+pacstrap /mnt base linux linux-firmware dhcpcd
 echo ""
 echo "Installed basic packages - OK"
 sleep $DELAY
