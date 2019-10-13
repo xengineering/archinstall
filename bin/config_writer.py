@@ -33,6 +33,7 @@ config_file_path = sys.argv[2]
 
 def output(text):
     print(text)
+    print("")
     with open(log_file_path, 'a') as f:
         f.write(text)
         f.write("")
@@ -44,5 +45,7 @@ config = {}
 config["test"] = "testing"
 config["test2"] = 2
 
-config_json = json.dumps(config)
-output(config_json)
+config_json = json.dumps(config, indent=4)
+
+with open(config_file_path, 'w') as f:
+    f.write(config_json)
