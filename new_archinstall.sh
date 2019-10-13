@@ -81,7 +81,7 @@ fi
 
 output "Check internet connection ..."
 
-if ping -w 1 -c 1 $TESTSERVER > /dev/null; then
+if ping -w 3 -c 1 $TESTSERVER > /dev/null; then
     output "Internet connection is ready - OK"
 else
     output "Could not reach testserver '$TESTSERVER' - FAILED"
