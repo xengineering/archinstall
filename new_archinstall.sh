@@ -37,7 +37,9 @@ REPOSITORY_PATH="/opt/archinstall.git"
 BRANCH_OR_COMMIT="master"
 SCRIPT_BASE_PATH=$REPOSITORY_PATH
 SCRIPT_BASE_PATH+="/bin/"
-CONFIG_FILE_PATH="/etc/archinstall/config.json"
+CONFIG_FILE_FOLDER_PATH="/etc/archinstall/"
+CONFIG_FILE_PATH=$CONFIG_FILE_FOLDER_PATH
+CONFIG_FILE_PATH+="config.json"
 DELAY=0.5
 
 
@@ -117,6 +119,7 @@ output "Generating config ..."
 
 script_path=$SCRIPT_BASE_PATH
 script_path+="config_writer.py"
+
 python $script_path $LOG_FILE_PATH $CONFIG_FILE_PATH
 output "Generated config - OK"
 
