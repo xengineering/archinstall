@@ -34,6 +34,7 @@ TESTSERVER="8.8.8.8"  # hostnames will not work properly
 LOG_FILE_PATH="/var/log/archinstall.log"
 REPOSITORY_URL="https://github.com/xengineering/archinstall/"
 REPOSITORY_PATH="/opt/archinstall.git"
+BRANCH_OR_COMMIT="master"
 CONFIG_FILE_PATH="/etc/archinstall/config.json"
 DELAY=0.5
 
@@ -105,7 +106,7 @@ output "Cloning git repository ..."
 pacman --noconfirm -Sy git | tee -a $LOG_FILE_PATH
 mkdir $REPOSITORY_PATH
 git clone $REPOSITORY_URL $REPOSITORY_PATH | tee -a $LOG_FILE_PATH
-cd $REPOSITORY_PATH && git checkout $CLONE_BRANCH | tee -a $LOG_FILE_PATH
+cd $REPOSITORY_PATH && git checkout $BRANCH_OR_COMMIT | tee -a $LOG_FILE_PATH
 cd
 output "Git repository cloned - OK"
 
