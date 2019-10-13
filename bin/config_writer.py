@@ -31,7 +31,7 @@ log_file_path = sys.argv[1]
 
 def output(text):
     print(text)
-    with open(log_file_path, a) as f:
+    with open(log_file_path, 'a') as f:
         f.write(text)
 
 
