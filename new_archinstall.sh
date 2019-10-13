@@ -117,7 +117,8 @@ output "Generating config ..."
 
 script_path=$SCRIPT_BASE_PATH
 script_path+="config_writer.py"
-python $script_path $LOG_FILE_PATH
+python $script_path $LOG_FILE_PATH $CONFIG_FILE_PATH
+output "Generated config - OK"
 
 
 # Generate new system ...

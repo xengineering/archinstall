@@ -24,15 +24,25 @@
 
 
 import sys
+import json
 
 
 log_file_path = sys.argv[1]
+config_file_path = sys.argv[2]
 
 
 def output(text):
     print(text)
     with open(log_file_path, 'a') as f:
         f.write(text)
+        f.write("")
 
 
-output("Hello world!")
+config = {}
+
+
+config["test"] = "testing"
+config["test2"] = 2
+
+config_json = json.dumps(config)
+output(config_json)
