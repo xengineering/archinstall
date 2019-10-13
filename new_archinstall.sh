@@ -104,7 +104,9 @@ output "Cloning git repository ..."
 
 pacman --noconfirm -Sy git | tee -a $LOG_FILE_PATH
 mkdir $REPOSITORY_PATH
-git clone $REPOSITORY_URL | tee -a $LOG_FILE_PATH
+git clone $REPOSITORY_URL $REPOSITORY_PATH | tee -a $LOG_FILE_PATH
+cd $REPOSITORY_PATH && git checkout $CLONE_BRANCH | tee -a $LOG_FILE_PATH
+cd
 output "Git repository cloned - OK"
 
 
