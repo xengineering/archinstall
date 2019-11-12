@@ -102,4 +102,4 @@ sleep $DELAY
 
 # Launching first stage
 
-bash $REPOSITORY_PATH/bin/first_stage.sh $DELAY $REPOSITORY_PATH $LOG_FILE_PATH
+bash $REPOSITORY_PATH/bin/first_stage.sh $DELAY $REPOSITORY_PATH $LOG_FILE_PATH | tee -a $LOG_FILE_PATH
