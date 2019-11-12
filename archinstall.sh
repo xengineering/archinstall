@@ -28,15 +28,7 @@
 #################################################################
 
 
-# Settings for the Script:
-
-DELAY=0.5
-CLONE_BRANCH="master"
-BASE_URL="https://github.com/xengineering/archinstall/"
-RAW_BASE_URL="https://raw.githubusercontent.com/xengineering/archinstall/"
-
-
-# Greetings and settings
+# Greetings
 
 cat << EOF
 
@@ -55,77 +47,20 @@ cat << EOF
 EOF
 
 
-echo "Here is a list of available hard disks on your computer:"
-echo ""
-lsblk -o NAME,SIZE,TYPE | grep -v part
-echo ""
-echo "Please type in the 'NAME' of the hard disk on which you want to"
-echo "install Arch Linux:"
-read disk
-disk_path="/dev/$disk"
-echo ""
+# Settings
 
-
-echo "Please type in the hostname of your new machine:"
-read hostname
-echo ""
-
-
-locales[1]="German / Germany"
-cat << EOF
-Please select one of the available localizations:
-
-[1] ${locales[1]}
-EOF
-read locale_id
-echo ""
-
-
-cat << EOF
-#################################################################
-
-                            Summary
-
-    Hard disk:     -  $disk
-    Hostname:      -  $hostname
-    Localization:  -  ${locales[$locale_id]}
-
-#################################################################
-
-EOF
-
-echo "All data on disk '$disk' will be finally lost!"
-echo "Are you SURE that you want to install Arch Linux to '$disk'?!"
-echo "Type 'Yes' for installation and 'No' for abort."
-read answer
-if [ $answer == "Yes" ]; then
-    echo ""
-    echo "Starting installation process - OK"
-    echo ""
-else
-    echo ""
-    echo "Abort of installation process!"
-    exit
-fi
-
-
-# Check if booted with UEFI
-
-if [ -d "/sys/firmware/efi/efivars" ]; then
-    echo "Booted with UEFI - OK"
-    echo ""
-    sleep $DELAY
-else
-    echo "Not booted with UEFI. Please enable it in your mainboard settings. - FAILED"
-    exit
-fi
+TESTSERVER="8.8.8.8"  # hostnames will not work properly
+NETWORK_DEADLINE=1  # in seconds
+REPOSITORY_URL="https://github.com/xengineering/archinstall/"
+REPOSITORY_PATH="/opt/archinstall"
+BRANCH_OR_COMMIT="master"  # select another branch name or commit hash if needed
+LOG_FILE_PATH="/var/log/archinstall.log"
+DELAY=0.5  # delay for reading messages in seconds
 
 
 # Check internet connection
 
-TESTSERVER="8.8.8.8"  # hostnames will not work properly
-
-if ping -w 1 -c 1 $TESTSERVER > /dev/null; then
+if ping -w $NETWORK_DEADLINE -c 1 $TESTSERVER > /dev/null; then
     echo "Internet connection is ready - OK"
     echo ""
     sleep $DELAY
@@ -137,7 +72,7 @@ fi
 
 # Update the system clock
 
-timedatectl set-ntp true
+timedatectl set-ntp true > /dev/null
 if [ $? -eq 0 ]; then
     echo "Updated system clock - OK"
     echo ""
@@ -148,95 +83,23 @@ else
 fi
 
 
-# Partitioning
+# Cloning Git repository
 
-wipefs -a $disk_path > /dev/null  # make sure that fdisk does not ask for
-                                  # removing signatures which breaks the script
-fdisk $disk_path > /dev/null 2> /dev/null << EOF
-g
-n
-1
-
-+512M
-n
-2
-
-
-p
-w
-EOF
-boot_partition_path="${disk_path}1"
-root_partition_path="${disk_path}2"
-echo "Partitioning finished - OK"
+echo "Cloning git repository ..."
+echo ""
 sleep $DELAY
-echo ""
-
-
-# Create Filesystems
-
-mkfs.fat -F32 $boot_partition_path > /dev/null 2> /dev/null
-mkfs.ext4 $root_partition_path > /dev/null 2> /dev/null
-fatlabel $boot_partition_path "BOOT" > /dev/null
-e2label $root_partition_path "ROOT" > /dev/null
-echo "Created filesystems - OK"
-sleep $DELAY
-echo ""
-
-
-# Mount Root Filesystem
-
-mount $root_partition_path /mnt
-echo "Mounted root partition - OK"
-sleep $DELAY
-echo ""
-
-
-# Install basic Packages
-
-echo "Going to install basic packages ..."
-sleep $DELAY
-echo ""
-pacstrap /mnt base linux linux-firmware dhcpcd
-echo ""
-echo "Installed basic packages - OK"
-sleep $DELAY
-echo ""
-
-
-# Generate /etc/fstab file
-
-genfstab -U /mnt >> /mnt/etc/fstab
-echo "Generated /etc/fstab - OK"
-sleep $DELAY
-echo ""
-
-
-# Install git in live environment and clone archinstall repository
 
 pacman --noconfirm -Sy git
-cd /mnt/opt && git clone $BASE_URL
-cd /root
-mv /mnt/opt/archinstall /mnt/opt/archinstall.git
-cd /mnt/opt/archinstall.git && git checkout $CLONE_BRANCH
-cd /root
-echo "bash /opt/archinstall.git/bin/second_stage.sh $hostname ${disk_path}1" | arch-chroot /mnt
-
-cd /root && umount $root_partition_path
-echo "Unmounted root partition - OK"
-sleep $DELAY
+mkdir $REPOSITORY_PATH
+git clone $REPOSITORY_URL $REPOSITORY_PATH
+cd $REPOSITORY_PATH
+git checkout $BRANCH_OR_COMMIT
+cd
+echo "Git repository cloned - OK"
 echo ""
+sleep $DELAY
 
 
-# Final Messages
+# Launching first stage
 
-cat << EOF
-#################################################################
-#                                                               #
-#     The default login is user root with password 'root'.      #
-#     You can now power off your machine with 'poweroff',       #
-#     remove the installation media and boot your new           #
-#     Arch Linux machine!                                       #
-#                                                               #
-#################################################################
-
-EOF
+bash $REPOSITORY_PATH/bin/first_stage.sh $DELAY $REPOSITORY_PATH $LOG_FILE_PATH | tee -a $LOG_FILE_PATH
