@@ -154,11 +154,6 @@ sleep $DELAY
 echo ""
 
 
-# Copy repository from live image to root partition
-
-cp -r $REPOSITORY_PATH /mnt$REPOSITORY_PATH
-
-
 # Install basic Packages
 
 echo "Going to install basic packages ..."
@@ -169,6 +164,11 @@ echo ""
 echo "Installed basic packages - OK"
 sleep $DELAY
 echo ""
+
+
+# Copy repository from live image to root partition
+
+cp -r $REPOSITORY_PATH /mnt$REPOSITORY_PATH
 
 
 # Generate /etc/fstab file
