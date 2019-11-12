@@ -1,32 +1,40 @@
 
+
 # archinstall
 
 This repository is intended to provide an installation script for Arch Linux so that it can be used during the installation process.
 
 Note: There are many Arch Install scripts out there but I wanted to create my own for an educational purpose. So it's mainly a personal repository, but if you like the script or want to contribute, you're welcome to use it.
 
+
 ## Usage
 
-Advice 1: The archinstall.sh script supports currently just UEFI systems, german localization and installation via cable connection instead of WiFi.
-
-Advice 2: Execute 'loadkeys de-latin1' after booting to live environment, if you want to set a german keyboard layout. You have to type 'z' for 'y' in loadkeys and 'ß' for the '-' sign.
-
-1. Download the Arch Linux .iso file and verify it.
+1. Download the Arch Linux .iso file (maybe [here](http://ftp.halifax.rwth-aachen.de/archlinux/iso/2019.11.01/)) and verify it.
 2. Write the .iso to a USB stick and boot the machine from this USB stick in UEFI mode.
-3. Download the script with 'curl https://raw.githubusercontent.com/xengineering/archinstall/master/archinstall.sh > archinstall.sh'.
+3. Download the script with 'curl -L archinstall.xengineering.eu > archinstall.sh'.
 4. Run the script with 'bash archinstall.sh' and follow the instructions.
+
+
+## Restrictions
+
+- Just UEFI systems
+- Just german localization of the installed system
+- Just installation with cable network connection (no WiFi)
+
+
+## Hint for german users
+
+Execute 'loadkeys de-latin1' after booting to live environment, if you want to set a german keyboard layout. You have to type 'z' for 'y' in loadkeys and 'ß' for the '-' sign.
 
 
 ## To Do
 
-- [ ] Provide LUKS encryption
-- [ ] Provide post-installation script for common settings (DHCP, users, etc.)
+- [ ] Provide reusable configuration file (json)
+- [ ] Support LVM
+- [ ] Provide LUKS on LVM encryption
+- [ ] Support english localization
 - [ ] Support installation with WiFi (instead of cable connection)
 - [ ] Modify mirrorlist
-- [ ] Support english localization
-- [ ] Add also localization for desktop systems
-- [ ] Check the result of every command for better security
-- [ ] Provide error log
+- [x] Provide error log
 - [x] Automatic partitioning
 - [x] Write first version of archinstall.sh
-
