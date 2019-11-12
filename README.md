@@ -29,12 +29,12 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 ## To Do
 
+- [ ] Provide complete error log
 - [ ] Provide reusable configuration file (json)
 - [ ] Support LVM
 - [ ] Provide LUKS on LVM encryption
 - [ ] Support english localization
 - [ ] Support installation with WiFi (instead of cable connection)
 - [ ] Modify mirrorlist
-- [x] Provide error log
 - [x] Automatic partitioning
 - [x] Write first version of archinstall.sh

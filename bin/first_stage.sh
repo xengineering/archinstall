@@ -23,13 +23,6 @@
 ####################
 
 
-# Argument Processing
-
-$DELAY=$1
-$REPOSITORY_PATH=$2
-$LOG_FILE_PATH=$3
-
-
 # Interview
 
 echo "Here is a list of available hard disks on your computer:"
