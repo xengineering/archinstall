@@ -27,18 +27,19 @@
 
 hostname=$1
 boot_partition_path=$2
+REPOSITORY_PATH=$3
 echo "hostname: $hostname"
 echo "boot_partition_path: $boot_partition_path"
 
 
 # Localization
 
-bash /opt/archinstall.git/bin/localization.sh
+bash $REPOSITORY_PATH/bin/localization.sh
 
 
 # Network Configuration
 
-bash /opt/archinstall.git/bin/network_configuration.sh $hostname
+bash $REPOSITORY_PATH/bin/network_configuration.sh $hostname
 
 
 # Initramfs
@@ -56,4 +57,4 @@ sleep 1
 
 # Bootloader Installation
 
-bash /opt/archinstall.git/bin/install_bootloader.sh $boot_partition_path
+bash $REPOSITORY_PATH/bin/install_bootloader.sh $boot_partition_path

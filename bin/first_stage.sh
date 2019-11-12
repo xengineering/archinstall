@@ -154,6 +154,11 @@ sleep $DELAY
 echo ""
 
 
+# Copy repository from live image to root partition
+
+cp -r $REPOSITORY_PATH /mnt$REPOSITORY_PATH
+
+
 # Install basic Packages
 
 echo "Going to install basic packages ..."
@@ -176,12 +181,11 @@ echo ""
 
 # Launch second stage in chroot
 
-echo "bash /opt/archinstall.git/bin/second_stage.sh $hostname ${disk_path}1" | arch-chroot /mnt
+echo "bash $REPOSITORY_PATH/bin/second_stage.sh $hostname ${disk_path}1 $REPOSITORY_PATH" | arch-chroot /mnt
 
 
-# Copy files from live image to root partition
+# Copy log from live image to root partition
 
-cp -r $REPOSITORY_PATH /mnt$REPOSITORY_PATH
 cp $LOG_FILE_PATH /mnt$LOG_FILE_PATH
 
 
