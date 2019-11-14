@@ -48,16 +48,6 @@ read hostname
 echo ""
 
 
-locales[1]="German / Germany"
-cat << EOF
-Please select one of the available localizations:
-
-[1] ${locales[1]}
-EOF
-read locale_id
-echo ""
-
-
 cat << EOF
 #################################################################
 
@@ -65,7 +55,6 @@ cat << EOF
 
     Hard disk:     -  $disk
     Hostname:      -  $hostname
-    Localization:  -  ${locales[$locale_id]}
 
 #################################################################
 
