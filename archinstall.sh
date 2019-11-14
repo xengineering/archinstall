@@ -60,7 +60,7 @@ DELAY=0.5  # delay for reading messages in seconds
 
 # Check internet connection
 
-if ping -w $NETWORK_DEADLINE -c 1 $TESTSERVER > /dev/null; then
+if ping -w $NETWORK_DEADLINE -c 1 $TESTSERVER; then
     echo "Internet connection is ready - OK"
     echo ""
     sleep $DELAY
@@ -72,7 +72,7 @@ fi
 
 # Update the system clock
 
-timedatectl set-ntp true > /dev/null
+timedatectl set-ntp true
 if [ $? -eq 0 ]; then
     echo "Updated system clock - OK"
     echo ""
@@ -95,6 +95,7 @@ git clone $REPOSITORY_URL $REPOSITORY_PATH
 cd $REPOSITORY_PATH
 git checkout $BRANCH_OR_COMMIT
 cd
+
 echo "Git repository cloned - OK"
 echo ""
 sleep $DELAY
@@ -102,4 +103,5 @@ sleep $DELAY
 
 # Launching first stage
 
-bash $REPOSITORY_PATH/bin/first_stage.sh $DELAY $REPOSITORY_PATH $LOG_FILE_PATH | tee -a $LOG_FILE_PATH
+bash $REPOSITORY_PATH/bin/first_stage.sh \
+$DELAY $REPOSITORY_PATH $LOG_FILE_PATH | tee -a $LOG_FILE_PATH

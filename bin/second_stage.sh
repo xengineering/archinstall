@@ -28,8 +28,6 @@
 hostname=$1
 boot_partition_path=$2
 REPOSITORY_PATH=$3
-echo "hostname: $hostname"
-echo "boot_partition_path: $boot_partition_path"
 
 
 # Localization
@@ -58,3 +56,10 @@ sleep 1
 # Bootloader Installation
 
 bash $REPOSITORY_PATH/bin/install_bootloader.sh $boot_partition_path
+
+
+# Good bye chroot
+
+echo "Leaving chroot environment - OK"
+echo ""
+sleep 1

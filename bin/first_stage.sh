@@ -98,24 +98,11 @@ else
 fi
 
 
-# Update the system clock
-
-timedatectl set-ntp true
-if [ $? -eq 0 ]; then
-    echo "Updated system clock - OK"
-    echo ""
-    sleep $DELAY
-else
-    echo "Could not update system clock - FAILED"
-    exit
-fi
-
-
 # Partitioning
 
-wipefs -a $disk_path > /dev/null  # make sure that fdisk does not ask for
-                                  # removing signatures which breaks the script
-fdisk $disk_path > /dev/null 2> /dev/null << EOF
+wipefs -a $disk_path  # make sure that fdisk does not ask for removing
+                      # signatures which breaks the script
+fdisk $disk_path << EOF
 g
 n
 1
@@ -137,10 +124,10 @@ echo ""
 
 # Create Filesystems
 
-mkfs.fat -F32 $boot_partition_path > /dev/null 2> /dev/null
-mkfs.ext4 $root_partition_path > /dev/null 2> /dev/null
-fatlabel $boot_partition_path "BOOT" > /dev/null
-e2label $root_partition_path "ROOT" > /dev/null
+mkfs.fat -F32 $boot_partition_path
+mkfs.ext4 $root_partition_path
+fatlabel $boot_partition_path "BOOT"
+e2label $root_partition_path "ROOT"
 echo "Created filesystems - OK"
 sleep $DELAY
 echo ""
@@ -181,7 +168,8 @@ echo ""
 
 # Launch second stage in chroot
 
-echo "bash $REPOSITORY_PATH/bin/second_stage.sh $hostname ${disk_path}1 $REPOSITORY_PATH" | arch-chroot /mnt
+echo "bash $REPOSITORY_PATH/bin/second_stage.sh $hostname \
+${disk_path}1 $REPOSITORY_PATH" | arch-chroot /mnt
 
 
 # Copy log from live image to root partition
