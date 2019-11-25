@@ -31,6 +31,7 @@ LOG_FILE_PATH=$3
 CONFIG_FILE_PATH=$4
 
 
+mkdir $(dirname "$CONFIG_FILE_PATH")
 touch $CONFIG_FILE_PATH
 python $2/bin/write_config.py $CONFIG_FILE_PATH
 disk=$(python $2/bin/get_config_string.py $CONFIG_FILE_PATH "disk")
