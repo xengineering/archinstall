@@ -67,6 +67,11 @@ if [ "$desktop" = "yes" ]; then
 fi
 
 
+# DHCP Setup
+
+bash $REPOSITORY_PATH/bin/setup_dhcp.sh
+
+
 # Good bye chroot
 
 echo "Leaving chroot environment - OK"
