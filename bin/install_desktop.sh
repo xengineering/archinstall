@@ -23,5 +23,5 @@
 ########################
 
 
-pacman --noconfirm -Syu xfce4 lightdm
+pacman --noconfirm -Syu xfce4 lightdm lightdm-gtk-greeter xorg
 systemctl enable lightdm
