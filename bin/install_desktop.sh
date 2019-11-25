@@ -25,3 +25,4 @@
 
 pacman --noconfirm -Syu xfce4 lightdm lightdm-gtk-greeter xorg
 systemctl enable lightdm
+localectl --no-convert set-x11-keymap de pc105 nodeadkeys
