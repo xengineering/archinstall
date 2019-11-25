@@ -55,6 +55,7 @@ REPOSITORY_URL="https://github.com/xengineering/archinstall/"
 REPOSITORY_PATH="/opt/archinstall"
 BRANCH_OR_COMMIT="master"  # select another branch name or commit hash if needed
 LOG_FILE_PATH="/var/log/archinstall.log"
+CONFIG_FILE_PATH="/etc/archinstall/config.json"
 DELAY=0.5  # delay for reading messages in seconds
 
 
@@ -104,4 +105,4 @@ sleep $DELAY
 # Launching first stage
 
 bash $REPOSITORY_PATH/bin/first_stage.sh \
-$DELAY $REPOSITORY_PATH $LOG_FILE_PATH | tee -a $LOG_FILE_PATH
+$DELAY $REPOSITORY_PATH $LOG_FILE_PATH $CONFIG_FILE_PATH | tee -a $LOG_FILE_PATH

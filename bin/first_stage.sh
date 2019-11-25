@@ -28,37 +28,14 @@
 DELAY=$1
 REPOSITORY_PATH=$2
 LOG_FILE_PATH=$3
+CONFIG_FILE_PATH=$4
 
 
-# Interview
+python $2/bin/write_config.py $CONFIG_FILE_PATH
+disk=$(python $2/bin/get_config_string.py $CONFIG_FILE_PATH "disk")
+disk_path=/dev/$disk
+hostname=$(python $2/bin/get_config_string.py $CONFIG_FILE_PATH "hostname")
 
-echo "Here is a list of available hard disks on your computer:"
-echo ""
-lsblk -o NAME,SIZE,TYPE | grep -v part
-echo ""
-echo "Please type in the 'NAME' of the hard disk on which you want to"
-echo "install Arch Linux:"
-read disk
-disk_path="/dev/$disk"
-echo ""
-
-
-echo "Please type in the hostname of your new machine:"
-read hostname
-echo ""
-
-
-cat << EOF
-#################################################################
-
-                            Summary
-
-    Hard disk:     -  $disk
-    Hostname:      -  $hostname
-
-#################################################################
-
-EOF
 
 echo "All data on disk '$disk' will be finally lost!"
 echo "Are you SURE that you want to install Arch Linux to '$disk'?!"
