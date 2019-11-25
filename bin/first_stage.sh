@@ -140,9 +140,11 @@ echo "bash $REPOSITORY_PATH/bin/second_stage.sh $hostname \
 ${disk_path}1 $REPOSITORY_PATH" | arch-chroot /mnt
 
 
-# Copy log from live image to root partition
+# Copy log and config from live image to root partition
 
 cp $LOG_FILE_PATH /mnt$LOG_FILE_PATH
+mkdir /mnt$(dirname "$CONFIG_FILE_PATH")
+cp $CONFIG_FILE_PATH /mnt$CONFIG_FILE_PATH
 
 
 # Unmount root partition
