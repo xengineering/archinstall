@@ -37,6 +37,7 @@ python $2/bin/write_config.py $CONFIG_FILE_PATH
 disk=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "disk")
 disk_path=/dev/$disk
 hostname=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "hostname")
+desktop=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "desktop")
 
 
 echo "All data on disk '$disk' will be finally lost!"
@@ -137,7 +138,7 @@ echo ""
 # Launch second stage in chroot
 
 echo "bash $REPOSITORY_PATH/bin/second_stage.sh $hostname \
-${disk_path}1 $REPOSITORY_PATH $CONFIG_FILE_PATH" | arch-chroot /mnt
+${disk_path}1 $REPOSITORY_PATH $CONFIG_FILE_PATH $desktop" | arch-chroot /mnt
 
 
 # Copy log and config from live image to root partition

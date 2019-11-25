@@ -29,6 +29,7 @@ hostname=$1
 boot_partition_path=$2
 REPOSITORY_PATH=$3
 CONFIG_FILE_PATH=$4
+desktop=$5
 
 
 # Localization
@@ -61,7 +62,6 @@ bash $REPOSITORY_PATH/bin/install_bootloader.sh $boot_partition_path
 
 # Desktop Installation
 
-desktop=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "desktop")
 if [ "$desktop" = "yes" ]; then
     bash $REPOSITORY_PATH/bin/install_desktop.sh
 fi
