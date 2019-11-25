@@ -47,6 +47,16 @@ print("Please type in the hostname of your new machine:")
 config["hostname"] = input()
 
 
+# Desktop or no Desktop
+
+print("Do you want to install a desktop? [Y/n]:")
+answer = input()
+if answer in ["", "Y", "y", "Yes", "yes"]:
+    config["desktop"] = "yes"
+else:
+    config["desktop"] = "no"
+
+
 # Write config to json file
 
 config_json = json.dumps(config, indent=4)
