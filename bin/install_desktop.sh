@@ -25,6 +25,6 @@
 
 pacman --no-confirm -Syu
 pacman --noconfirm -S xorg-server xorg-xinit xorg-utils xorg-server-utils xorg-drivers
-pacman --noconfirm -S xfce4 lightdm lightdm-gtk-greeter
+pacman --noconfirm -S xfce4 lightdm lightdm-gtk-greeter libxkbcommon libxkbcommon-x11
 systemctl enable lightdm
 localectl --no-convert set-x11-keymap de pc105 nodeadkeys  # does not work. Please fix!
