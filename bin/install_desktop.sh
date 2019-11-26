@@ -23,6 +23,8 @@
 ########################
 
 
-pacman --noconfirm -Syu xfce4 lightdm lightdm-gtk-greeter xorg
+pacman --no-confirm -Syu
+pacman --noconfirm -S xorg-server xorg-xinit xorg-utils xorg-server-utils xorg-drivers
+pacman --noconfirm -S xfce4 lightdm lightdm-gtk-greeter
 systemctl enable lightdm
-localectl --no-convert set-x11-keymap de pc105 nodeadkeys
+localectl --no-convert set-x11-keymap de pc105 nodeadkeys  # does not work. Please fix!
