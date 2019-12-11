@@ -37,6 +37,8 @@ sleep 1
 echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen
 echo "de_DE ISO-8859-1" >> /etc/locale.gen
 echo "de_DE@euro ISO-8859-15" >> /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+echo "en_US ISO-8859-1" >> /etc/locale.gen
 
 locale-gen
 
@@ -45,9 +47,6 @@ echo "LANG=de_DE.UTF-8" > /etc/locale.conf
 
 touch /etc/vconsole.conf
 echo "KEYMAP=de-latin1" > /etc/vconsole.conf
-
-# this just works after installing a desktop environment (e.g. xorg and xfce4 package)
-# localectl --no-convert set-x11-keymap de pc105 nodeadkeys  # desktop keyboard layout
 
 echo "German localization done - OK"
 echo ""

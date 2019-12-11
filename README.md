@@ -31,6 +31,7 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 - [ ] Provide recommended Package Lists
 - [ ] Modify Mirrorlist
+- [ ] Create a main User with sudo Permissions
 - [ ] Packaged for the AUR
 - [ ] Support LVM
 - [ ] Provide LUKS on LVM Encryption
