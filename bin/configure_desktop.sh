@@ -24,5 +24,16 @@
 
 
 systemctl enable lightdm
-touch /etc/X11/xorg.conf.d/00-keyboard.conf
-localectl --no-convert set-x11-keymap de pc105 nodeadkeys
+
+cat > /etc/X11/xorg.conf.d/00-keyboard.conf << EOL
+# Written by systemd-localed(8), read by systemd-localed and Xorg. It's
+# probably wise not to edit this file manually. Use localectl(1) to
+# instruct systemd-localed to update it.
+Section "InputClass"
+        Identifier "system-keyboard"
+        MatchIsKeyboard "on"
+        Option "XkbLayout" "de"
+        Option "XkbModel" "pc105"
+        Option "XkbVariant" "nodeadkeys"
+EndSection
+EOF
