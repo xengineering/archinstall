@@ -24,4 +24,5 @@
 
 
 systemctl enable lightdm
+touch /etc/X11/xorg.conf.d/00-keyboard.conf
 localectl --no-convert set-x11-keymap de pc105 nodeadkeys
