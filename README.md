@@ -30,12 +30,12 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 ## To Do
 
 - [ ] Provide recommended Package Lists
+- [ ] Modify Mirrorlist
 - [ ] Packaged for the AUR
 - [ ] Support LVM
 - [ ] Provide LUKS on LVM Encryption
 - [ ] Support English Localization
 - [ ] Support Installation with WiFi (instead of cable connection)
-- [ ] Modify Mirrorlist
 - [x] Provide Installation of Desktop Environment
 - [x] Provide reusable Configuration File (json)
 - [x] Provide Error Log

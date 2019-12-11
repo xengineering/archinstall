@@ -23,5 +23,4 @@
 ###################
 
 
-pacman --no-confirm -Syu dhcpcd
 systemctl enable dhcpcd
