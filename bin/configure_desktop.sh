@@ -25,7 +25,7 @@
 
 systemctl enable lightdm
 
-cat > /etc/X11/xorg.conf.d/00-keyboard.conf << EOL
+cat > /etc/X11/xorg.conf.d/00-keyboard.conf << EOF
 # Written by systemd-localed(8), read by systemd-localed and Xorg. It's
 # probably wise not to edit this file manually. Use localectl(1) to
 # instruct systemd-localed to update it.
