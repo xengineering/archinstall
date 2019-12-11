@@ -25,7 +25,6 @@
 
 # Install Grub
 
-pacman --noconfirm -Syu grub efibootmgr
 mount $1 /mnt
 grub-install --target=x86_64-efi --efi-directory=/mnt --bootloader-id=GRUB \
 --removable

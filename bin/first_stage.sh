@@ -115,7 +115,10 @@ echo ""
 echo "Going to install basic packages ..."
 sleep $DELAY
 echo ""
-pacstrap /mnt base linux linux-firmware dhcpcd
+pacstrap /mnt base linux linux-firmware dhcpcd nano sudo grub efibootmgr
+if [ "$desktop" = "yes" ]; then
+    pacstrap /mnt xorg lightdm lightdm-gtk-greeter xfce4
+fi
 echo ""
 echo "Installed basic packages - OK"
 sleep $DELAY

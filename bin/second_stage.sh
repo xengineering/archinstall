@@ -63,13 +63,8 @@ bash $REPOSITORY_PATH/bin/install_bootloader.sh $boot_partition_path
 # Desktop Installation
 
 if [ "$desktop" = "yes" ]; then
-    bash $REPOSITORY_PATH/bin/install_desktop.sh
+    bash $REPOSITORY_PATH/bin/configure_desktop.sh
 fi
-
-
-# DHCP Setup
-
-bash $REPOSITORY_PATH/bin/setup_dhcp.sh
 
 
 # Good bye chroot

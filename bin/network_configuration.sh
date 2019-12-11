@@ -33,6 +33,8 @@ echo "" >> /etc/hosts
 echo "127.0.0.1    localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
 
+systemctl enable dhcpcd
+
 echo "Network configuration done - OK"
 echo ""
 sleep 1
