@@ -29,13 +29,15 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 ## To Do
 
+- [ ] Provide recommended Package Lists
+- [ ] Packaged for the AUR
 - [ ] Support LVM
-- [ ] Provide LUKS on LVM encryption
-- [ ] Support english localization
-- [ ] Support installation with WiFi (instead of cable connection)
-- [ ] Modify mirrorlist
-- [x] Provide installation of desktop environment
-- [x] Provide reusable configuration file (json)
-- [x] Provide error log
-- [x] Automatic partitioning
-- [x] Write first version of archinstall.sh
+- [ ] Provide LUKS on LVM Encryption
+- [ ] Support English Localization
+- [ ] Support Installation with WiFi (instead of cable connection)
+- [ ] Modify Mirrorlist
+- [x] Provide Installation of Desktop Environment
+- [x] Provide reusable Configuration File (json)
+- [x] Provide Error Log
+- [x] Automatic Partitioning
+- [x] Write first Version of archinstall.sh
