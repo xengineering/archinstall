@@ -29,14 +29,14 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 ## To Do
 
+- [ ] Create a main User with sudo Permissions
+- [ ] Support BIOS Systems
+- [ ] Support English Localization
+- [ ] Provide LUKS Encryption
+- [ ] Support Installation with WiFi (instead of cable connection)
 - [ ] Provide recommended Package Lists
 - [ ] Modify Mirrorlist
-- [ ] Create a main User with sudo Permissions
 - [ ] Packaged for the AUR
-- [ ] Support LVM
-- [ ] Provide LUKS on LVM Encryption
-- [ ] Support English Localization
-- [ ] Support Installation with WiFi (instead of cable connection)
 - [x] Provide Installation of Desktop Environment
 - [x] Provide reusable Configuration File (json)
 - [x] Provide Error Log
