@@ -18,8 +18,13 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
-hwclock --systohc
-echo "Timezone set - OK"
+# Install Grub
+
+mount $1 /mnt
+grub-install --target=x86_64-efi --efi-directory=/mnt --bootloader-id=GRUB \
+--removable
+grub-mkconfig -o /boot/grub/grub.cfg
+umount $1
+echo "Grub bootloader installed - OK"
 echo ""
 sleep 1
