@@ -23,8 +23,6 @@
 ####################
 
 
-# Argument Processing
-
 DELAY=$1
 REPOSITORY_PATH=$2
 LOG_FILE_PATH=$3
@@ -33,7 +31,7 @@ CONFIG_FILE_PATH=$4
 
 mkdir $(dirname "$CONFIG_FILE_PATH")
 touch $CONFIG_FILE_PATH
-python $2/bin/write_config.py $CONFIG_FILE_PATH
+python $REPOSITORY_PATH/bin/write_config.py $CONFIG_FILE_PATH
 disk=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "disk")
 disk_path=/dev/$disk
 hostname=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "hostname")
@@ -140,7 +138,7 @@ echo ""
 
 # Launch second stage in chroot
 
-echo "bash $REPOSITORY_PATH/bin/second_stage.sh $hostname \
+echo "bash $REPOSITORY_PATH/stages/second_stage.sh $hostname \
 ${disk_path}1 $REPOSITORY_PATH $CONFIG_FILE_PATH $desktop" | arch-chroot /mnt
 
 
