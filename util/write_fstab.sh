@@ -19,6 +19,4 @@
 
 
 genfstab -U /mnt >> /mnt/etc/fstab
-echo "Generated /etc/fstab - OK"
-sleep $DELAY
-echo ""
+echo "Wrote /etc/fstab - OK"

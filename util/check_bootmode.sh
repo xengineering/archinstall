@@ -18,13 +18,10 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-# Check if booted with UEFI
-
 if [ -d "/sys/firmware/efi/efivars" ]; then
-    echo "Booted with UEFI - OK"
-    echo ""
-    sleep $DELAY
+    echo "Booted with UEFI"
+    echo "Checked bootmode - OK"
 else
     echo "Not booted with UEFI. Please enable it in your mainboard settings. - FAILED"
-    exit
+    echo "Checked bootmode - OK"
 fi

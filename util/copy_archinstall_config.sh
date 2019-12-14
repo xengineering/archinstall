@@ -19,3 +19,5 @@
 
 
 cp $LOG_FILE_PATH /mnt$LOG_FILE_PATH
+
+echo "Copied archinstall configuration - OK"

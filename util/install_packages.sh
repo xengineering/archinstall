@@ -18,14 +18,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-echo "Going to install packages ..."
-sleep $DELAY
-echo ""
 pacstrap /mnt base linux linux-firmware dhcpcd nano sudo grub efibootmgr
 if [ "$desktop" = "yes" ]; then
     pacstrap /mnt xorg lightdm lightdm-gtk-greeter xfce4 mousepad
 fi
-echo ""
+
 echo "Installed packages - OK"
-sleep $DELAY
-echo ""

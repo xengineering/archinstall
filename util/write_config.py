@@ -63,3 +63,5 @@ with open(config_file_path, 'w') as f:
 
 print("Config for this installation:")
 print(config_json)
+
+print("Wrote config - OK")

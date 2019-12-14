@@ -20,3 +20,5 @@
 
 mkdir /mnt$(dirname "$CONFIG_FILE_PATH")
 cp $CONFIG_FILE_PATH /mnt$CONFIG_FILE_PATH
+
+echo "Copied archinstall log - OK"

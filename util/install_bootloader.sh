@@ -18,13 +18,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-# Install Grub
-
 mount $1 /mnt
 grub-install --target=x86_64-efi --efi-directory=/mnt --bootloader-id=GRUB \
 --removable
 grub-mkconfig -o /boot/grub/grub.cfg
 umount $1
-echo "Grub bootloader installed - OK"
-echo ""
-sleep 1
+echo "Installed bootloader - OK"

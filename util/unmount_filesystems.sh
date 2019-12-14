@@ -19,6 +19,4 @@
 
 
 cd /root && umount $root_partition_path
-echo "Unmounted root partition - OK"
-sleep $DELAY
-echo ""
+echo "Unmounted filesystems - OK"

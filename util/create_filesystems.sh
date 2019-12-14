@@ -23,5 +23,3 @@ mkfs.ext4 $root_partition_path
 fatlabel $boot_partition_path "BOOT"
 e2label $root_partition_path "ROOT"
 echo "Created filesystems - OK"
-sleep $DELAY
-echo ""

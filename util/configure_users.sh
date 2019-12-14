@@ -19,6 +19,4 @@
 
 
 echo "root:root" | chpasswd
-echo "Default password for user root set - OK"
-echo ""
-sleep 1
+echo "Configured users - OK"

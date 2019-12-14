@@ -19,3 +19,5 @@
 
 
 cp -r $REPOSITORY_PATH /mnt$REPOSITORY_PATH
+
+echo "Installed archinstall - OK"

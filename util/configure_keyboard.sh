@@ -20,3 +20,5 @@
 
 touch /etc/vconsole.conf
 echo "KEYMAP=de-latin1" > /etc/vconsole.conf
+
+echo "Keyboard configuration done - OK"

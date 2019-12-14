@@ -20,6 +20,4 @@
 
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc
-echo "Timezone set - OK"
-echo ""
-sleep 1
+echo "Configured timezone - OK"

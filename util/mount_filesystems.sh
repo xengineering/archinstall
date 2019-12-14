@@ -19,6 +19,4 @@
 
 
 mount $root_partition_path /mnt
-echo "Mounted root partition - OK"
-sleep $DELAY
-echo ""
+echo "Mounted filesystems - OK"

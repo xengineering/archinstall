@@ -26,3 +26,5 @@ locale-gen
 
 touch /etc/locale.conf
 echo "LANG=de_DE.UTF-8" > /etc/locale.conf
+
+echo "Configured locales - OK"

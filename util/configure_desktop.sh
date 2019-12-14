@@ -32,3 +32,5 @@ Section "InputClass"
         Option "XkbVariant" "nodeadkeys"
 EndSection
 EOF
+
+echo "Configured desktop - OK"

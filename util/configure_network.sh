@@ -28,6 +28,4 @@ echo "::1       localhost" >> /etc/hosts
 
 systemctl enable dhcpcd
 
-echo "Network configuration done - OK"
-echo ""
-sleep 1
+echo "Configured network - OK"

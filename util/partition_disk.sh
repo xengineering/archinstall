@@ -35,6 +35,5 @@ w
 EOF
 boot_partition_path="${disk_path}1"
 root_partition_path="${disk_path}2"
-echo "Partitioning finished - OK"
-sleep $DELAY
-echo ""
+
+echo "Partitioned disk - OK"
