@@ -18,5 +18,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+root_partition_path=$1  # e.g. /dev/sda2
+
+
 mount $root_partition_path /mnt
+
 echo "Mounted filesystems - OK"

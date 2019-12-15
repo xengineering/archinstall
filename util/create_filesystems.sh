@@ -18,8 +18,13 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+boot_partition_path=$1  # e.g. /dev/sda1
+root_partition_path=$2  # e.g. /dev/sda2
+
+
 mkfs.fat -F32 $boot_partition_path
-mkfs.ext4 $root_partition_path
 fatlabel $boot_partition_path "BOOT"
+mkfs.ext4 $root_partition_path
 e2label $root_partition_path "ROOT"
+
 echo "Created filesystems - OK"

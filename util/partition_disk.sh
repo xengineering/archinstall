@@ -18,6 +18,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+disk_path=$1  # e.g. /dev/sda
+
+
 wipefs -a $disk_path  # make sure that fdisk does not ask for removing
                       # signatures which breaks the script
 fdisk $disk_path << EOF
@@ -33,7 +36,5 @@ n
 p
 w
 EOF
-boot_partition_path="${disk_path}1"
-root_partition_path="${disk_path}2"
 
 echo "Partitioned disk - OK"

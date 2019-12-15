@@ -18,6 +18,10 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+timezone=$1  # e.g. /usr/share/zoneinfo/Europe/Berlin
+
+
+ln -sf $timezone /etc/localtime
 hwclock --systohc
+
 echo "Configured timezone - OK"

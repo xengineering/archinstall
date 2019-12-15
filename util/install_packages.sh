@@ -18,8 +18,11 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+desktop_wanted=$1  # e.g. "yes"
+
+
 pacstrap /mnt base linux linux-firmware dhcpcd nano sudo grub efibootmgr
-if [ "$desktop" = "yes" ]; then
+if [ "$desktop_wanted" = "yes" ]; then
     pacstrap /mnt xorg lightdm lightdm-gtk-greeter xfce4 mousepad
 fi
 

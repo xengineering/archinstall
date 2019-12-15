@@ -18,6 +18,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-cp -r $REPOSITORY_PATH /mnt$REPOSITORY_PATH
+repository_path=$1  # e.g. "/opt/archinstall"
+
+
+cp -r $repository_path /mnt$repository_path
 
 echo "Installed archinstall - OK"

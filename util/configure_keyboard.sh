@@ -18,7 +18,10 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+keymap=$1  # e.g. "de-latin1"
+
+
 touch /etc/vconsole.conf
-echo "KEYMAP=de-latin1" > /etc/vconsole.conf
+echo "KEYMAP=$keymap" > /etc/vconsole.conf
 
 echo "Keyboard configuration done - OK"

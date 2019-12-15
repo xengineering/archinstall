@@ -19,4 +19,5 @@
 
 
 genfstab -U /mnt >> /mnt/etc/fstab
+
 echo "Wrote /etc/fstab - OK"

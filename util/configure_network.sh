@@ -18,8 +18,11 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+hostname=$1
+
+
 touch /etc/hostname
-echo $1 > /etc/hostname
+echo $hostname > /etc/hostname
 
 touch /etc/hosts
 echo "" >> /etc/hosts

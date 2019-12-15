@@ -18,6 +18,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-cp $LOG_FILE_PATH /mnt$LOG_FILE_PATH
+config_file_path=$1  # e.g. "/var/log/archinstall.log"
+
+
+cp $config_file_path /mnt$config_file_path
 
 echo "Copied archinstall configuration - OK"

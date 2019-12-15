@@ -23,7 +23,7 @@ import json
 import subprocess
 
 
-config_file_path = sys.argv[1]
+config_file_path = sys.argv[1]  # e.g. "/etc/archinstall/config.json"
 
 
 config = {}

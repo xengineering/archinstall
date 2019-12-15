@@ -18,5 +18,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+root_partition_path=$1  # e.g. /dev/sda2
+
+
 cd /root && umount $root_partition_path
+
 echo "Unmounted filesystems - OK"

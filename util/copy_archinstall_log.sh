@@ -18,7 +18,10 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-mkdir /mnt$(dirname "$CONFIG_FILE_PATH")
-cp $CONFIG_FILE_PATH /mnt$CONFIG_FILE_PATH
+log_file_path=$1  # e.g. "/etc/archinstall/config.json"
+
+
+mkdir /mnt$(dirname "$log_file_path")
+cp $log_file_path /mnt$log_file_path
 
 echo "Copied archinstall log - OK"

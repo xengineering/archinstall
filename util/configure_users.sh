@@ -19,4 +19,5 @@
 
 
 echo "root:root" | chpasswd
+
 echo "Configured users - OK"

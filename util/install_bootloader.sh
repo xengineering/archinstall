@@ -18,9 +18,13 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-mount $1 /mnt
+boot_partition_path=$1
+
+
+mount $boot_partition_path /mnt
 grub-install --target=x86_64-efi --efi-directory=/mnt --bootloader-id=GRUB \
 --removable
 grub-mkconfig -o /boot/grub/grub.cfg
-umount $1
+umount $boot_partition_path
+
 echo "Installed bootloader - OK"
