@@ -19,3 +19,8 @@
 
 
 echo "Entering second_stage.sh - OK"
+
+echo "Debug values:"
+echo $PATH
+echo $REPOSITORY_PATH
+echo "End of debug values."

@@ -62,3 +62,17 @@ bash partition_disk.sh $disk_path
 bash create_filesystems.sh $boot_partition_path $root_partition_path
 
 bash mount_filesystems.sh $root_partition_path
+
+bash install_packages.sh $desktop
+
+bash install_archinstall.sh $REPOSITORY_PATH
+
+bash write_fstab.sh
+
+bash second_stage.sh
+
+bash copy_archinstall_log.sh $LOG_FILE_PATH
+
+bash unmount_filesystems.sh $root_partition_path
+
+bash print_final_message.sh
