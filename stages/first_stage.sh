@@ -38,22 +38,7 @@ export hostname=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FIL
 export desktop=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "desktop")
 
 
-# Confirmation
-
-echo "All data on disk '$disk' will be finally lost!"
-echo "Are you SURE that you want to install Arch Linux to '$disk'?!"
-echo "Type 'Yes' for installation and 'No' for abort."
-read answer
-if [ $answer == "Yes" ]; then
-    echo ""
-    echo "Starting installation process - OK"
-    echo ""
-else
-    echo ""
-    echo "Abort of installation process!"
-    exit
-fi
-
+bash confirm_installation.sh $disk
 
 bash check_bootmode.sh
 
