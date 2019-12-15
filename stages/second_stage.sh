@@ -20,7 +20,17 @@
 
 echo "Entering second_stage.sh - OK"
 
-echo "Debug values:"
-echo $PATH
-echo $REPOSITORY_PATH
-echo "End of debug values."
+
+bash configure_keyboard.sh de-latin1
+
+bash configure_locales.sh
+
+bash configure_timezone.sh /usr/share/zoneinfo/Europe/Berlin
+
+bash configure_network.sh $hostname
+
+bash configure_users.sh
+
+bash install_bootloader.sh $boot_partition_path
+
+bash configure_desktop.sh 
