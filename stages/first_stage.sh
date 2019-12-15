@@ -30,12 +30,12 @@ python $REPOSITORY_PATH/util/write_config.py $CONFIG_FILE_PATH
 
 # Reading config values to bash
 
-export disk=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "disk")
+export disk=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "disk")
 export disk_path=/dev/$disk
 export boot_partition_path="${disk_path}1"
 export root_partition_path="${disk_path}2"
-export hostname=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "hostname")
-export desktop=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "desktop")
+export hostname=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "hostname")
+export desktop=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "desktop")
 
 
 # Confirmation

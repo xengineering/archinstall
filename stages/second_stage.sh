@@ -21,12 +21,6 @@
 echo "Entering second_stage.sh - OK"
 
 
-echo "Debug values:"
-echo $PATH
-echo $REPOSITORY_PATH
-echo "End of debug"
-
-
 bash configure_keyboard.sh de-latin1
 
 bash configure_locales.sh
