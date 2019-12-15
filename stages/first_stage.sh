@@ -36,6 +36,7 @@ export boot_partition_path="${disk_path}1"
 export root_partition_path="${disk_path}2"
 export hostname=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "hostname")
 export desktop=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "desktop")
+export admin_username=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "admin_username")
 
 
 bash confirm_installation.sh $disk

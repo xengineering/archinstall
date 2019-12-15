@@ -18,6 +18,16 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-echo "root:root" | chpasswd
+admin_username=$1
+default_password=$2
+
+
+echo "root:$default_password" | chpasswd
+
+useradd -m $admin_username
+usermod -aG wheel $admin_username
+echo "$admin_username:$default_password" | chpasswd
+
+# passwd -l root  # lock the root account if changing /etc/sudoers is implemented
 
 echo "Configured users - OK"

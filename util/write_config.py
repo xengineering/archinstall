@@ -52,6 +52,12 @@ else:
     config["desktop"] = "no"
 
 
+# Admin account
+
+print("Please select your username (like 'paul' or 'alice'):")
+config["admin_username"] = input()
+
+
 # Write config to json file
 
 config_json = json.dumps(config, indent=4)

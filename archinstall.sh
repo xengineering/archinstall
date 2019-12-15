@@ -37,6 +37,7 @@ export REPOSITORY_PATH="/opt/archinstall"
 export BRANCH_OR_COMMIT="master"  # select another branch name or commit hash if needed
 export LOG_FILE_PATH="/var/log/archinstall.log"
 export CONFIG_FILE_PATH="/etc/archinstall/config.json"
+export DEFAULT_PASSWORD="archinstall"
 
 
 # PATH expansion

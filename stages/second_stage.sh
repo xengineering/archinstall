@@ -29,7 +29,7 @@ bash configure_timezone.sh /usr/share/zoneinfo/Europe/Berlin
 
 bash configure_network.sh $hostname
 
-bash configure_users.sh
+bash configure_users.sh $admin_username $DEFAULT_PASSWORD
 
 bash install_bootloader.sh $boot_partition_path
 
