@@ -61,4 +61,4 @@ bash copy_archinstall_log.sh $LOG_FILE_PATH
 
 bash unmount_filesystems.sh $root_partition_path
 
-bash print_final_message.sh
+bash print_final_message.sh $DEFAULT_PASSWORD

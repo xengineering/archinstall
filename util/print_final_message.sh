@@ -18,14 +18,17 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+default_password=$1
+
+
 cat << EOF
 #################################################################
-#                                                               #
-#     The default login is user root with password 'root'.      #
-#     You can now power off your machine with 'poweroff',       #
-#     remove the installation media and boot your new           #
-#     Arch Linux machine!                                       #
-#                                                               #
+
+    The default password for your user and root is '$default_password'.
+    You can now power off your machine with 'poweroff',
+    remove the installation media and boot your new
+    Arch Linux machine!
+
 #################################################################
 
 EOF
