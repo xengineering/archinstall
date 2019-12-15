@@ -24,10 +24,23 @@ echo "Entering first_stage.sh - OK"
 mkdir $(dirname "$CONFIG_FILE_PATH")
 touch $CONFIG_FILE_PATH
 python write_config.py $CONFIG_FILE_PATH
-disk=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "disk")
-disk_path=/dev/$disk
-hostname=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "hostname")
-desktop=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "desktop")
+export disk=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "disk")
+export disk_path=/dev/$disk
+export boot_partition_path=$disk_path1
+export root_partition_path=$disk_path2
+export hostname=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "hostname")
+export desktop=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "desktop")
+
+
+# DEBUGGING:
+echo "Printing variables:"
+echo $PATH
+echo $disk
+echo $disk_path
+echo $boot_partition_path
+echo $root_partition_path
+echo $hostname
+echo $desktop
 
 
 echo "All data on disk '$disk' will be finally lost!"
@@ -49,6 +62,6 @@ bash check_bootmode.sh
 
 bash partition_disk.sh $disk_path
 
-bash create_filesystems.sh $(disk_path)1 $(disk_path)2
+bash create_filesystems.sh $boot_partition_path $root_partition_path
 
-bash mount_filesystems.sh $(disk_path)2
+bash mount_filesystems.sh $root_partition_path
