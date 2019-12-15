@@ -69,7 +69,7 @@ bash install_archinstall.sh $REPOSITORY_PATH
 
 bash write_fstab.sh
 
-bash second_stage.sh
+echo "bash second_stage.sh" | arch-chroot /mnt
 
 bash copy_archinstall_log.sh $LOG_FILE_PATH
 
