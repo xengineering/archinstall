@@ -37,7 +37,6 @@ REPOSITORY_PATH="/opt/archinstall"
 BRANCH_OR_COMMIT="master"  # select another branch name or commit hash if needed
 LOG_FILE_PATH="/var/log/archinstall.log"
 CONFIG_FILE_PATH="/etc/archinstall/config.json"
-DELAY=0.5  # delay for reading messages in seconds
 
 
 # Greetings
@@ -64,7 +63,6 @@ EOF
 if ping -w $NETWORK_DEADLINE -c 1 $TESTSERVER; then
     echo "Internet connection is ready - OK"
     echo ""
-    sleep $DELAY
 else
     echo "Could not reach testserver '$TESTSERVER' - FAILED"
     exit
@@ -77,7 +75,6 @@ timedatectl set-ntp true
 if [ $? -eq 0 ]; then
     echo "Updated system clock - OK"
     echo ""
-    sleep $DELAY
 else
     echo "Could not update system clock - FAILED"
     exit
@@ -88,7 +85,6 @@ fi
 
 echo "Cloning git repository ..."
 echo ""
-sleep $DELAY
 
 pacman --noconfirm -Sy git
 mkdir $REPOSITORY_PATH
@@ -99,7 +95,6 @@ cd
 
 echo "Git repository cloned - OK"
 echo ""
-sleep $DELAY
 
 
 # Launching first stage
