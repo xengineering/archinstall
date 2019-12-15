@@ -21,27 +21,24 @@
 echo "Entering first_stage.sh - OK"
 
 
+# Write config
+
 mkdir $(dirname "$CONFIG_FILE_PATH")
 touch $CONFIG_FILE_PATH
-python write_config.py $CONFIG_FILE_PATH
+python $REPOSITORY_PATH/util/write_config.py $CONFIG_FILE_PATH
+
+
+# Reading config values to bash
+
 export disk=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "disk")
 export disk_path=/dev/$disk
-export boot_partition_path=$disk_path1
-export root_partition_path=$disk_path2
+export boot_partition_path="${disk_path}1"
+export root_partition_path="${disk_path}2"
 export hostname=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "hostname")
 export desktop=$(python $REPOSITORY_PATH/bin/get_config_string.py $CONFIG_FILE_PATH "desktop")
 
 
-# DEBUGGING:
-echo "Printing variables:"
-echo $PATH
-echo $disk
-echo $disk_path
-echo $boot_partition_path
-echo $root_partition_path
-echo $hostname
-echo $desktop
-
+# Confirmation
 
 echo "All data on disk '$disk' will be finally lost!"
 echo "Are you SURE that you want to install Arch Linux to '$disk'?!"
