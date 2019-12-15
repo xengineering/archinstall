@@ -32,11 +32,19 @@
 
 TESTSERVER="8.8.8.8"  # hostnames will not work properly
 NETWORK_DEADLINE=1  # in seconds
-REPOSITORY_URL="https://github.com/xengineering/archinstall/"
-REPOSITORY_PATH="/opt/archinstall"
-BRANCH_OR_COMMIT="master"  # select another branch name or commit hash if needed
-LOG_FILE_PATH="/var/log/archinstall.log"
-CONFIG_FILE_PATH="/etc/archinstall/config.json"
+export REPOSITORY_URL="https://github.com/xengineering/archinstall/"
+export REPOSITORY_PATH="/opt/archinstall"
+export BRANCH_OR_COMMIT="master"  # select another branch name or commit hash if needed
+export LOG_FILE_PATH="/var/log/archinstall.log"
+export CONFIG_FILE_PATH="/etc/archinstall/config.json"
+
+# PATH expansion
+
+export PATH=$PATH:$(REPOSITORY_PATH)/stages
+export PATH=$PATH:$(REPOSITORY_PATH)/util
+echo "New PATH:"
+echo $PATH
+echo ""
 
 
 # Greetings
@@ -99,5 +107,7 @@ echo ""
 
 # Launching first stage
 
-bash $REPOSITORY_PATH/bin/first_stage.sh \
-$DELAY $REPOSITORY_PATH $LOG_FILE_PATH $CONFIG_FILE_PATH | tee -a $LOG_FILE_PATH
+#bash $REPOSITORY_PATH/bin/first_stage.sh \
+#$REPOSITORY_PATH $LOG_FILE_PATH $CONFIG_FILE_PATH | tee -a $LOG_FILE_PATH
+
+bash first_stage.sh | tee -a $LOG_FILE_PATH

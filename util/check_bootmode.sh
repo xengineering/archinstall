@@ -20,8 +20,7 @@
 
 if [ -d "/sys/firmware/efi/efivars" ]; then
     echo "Booted with UEFI"
-    echo "Checked bootmode - OK"
 else
     echo "Not booted with UEFI. Please enable it in your mainboard settings. - FAILED"
-    echo "Checked bootmode - OK"
+    exit
 fi
