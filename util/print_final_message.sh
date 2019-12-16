@@ -24,7 +24,7 @@ default_password=$1
 cat << EOF
 #################################################################
 
-    The default password for your user and root is '$default_password'.
+    The default password for your user and root is '${default_password}'.
     You can now power off your machine with 'poweroff',
     remove the installation media and boot your new
     Arch Linux machine!
