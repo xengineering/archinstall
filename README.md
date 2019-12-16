@@ -29,14 +29,23 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 ## To Do
 
+(Highest priority first)
+
 - [ ] Provide LUKS encryption
-- [ ] Support installation with WiFi (instead of cable connection)
-- [ ] Provide recommended package lists
+- [ ] Create swap partition for suspension to disk
 - [ ] Modify mirrorlist
 - [ ] Automatic abort in case of errors
+- [ ] Support installation with WiFi (instead of cable connection)
+- [ ] Provide recommended package lists
 - [ ] Support BIOS systems
 - [ ] Support english localization
-- [ ] Packaged for the AUR
+- [ ] Package for the AUR
+
+
+## Done
+
+(Last finished task first)
+
 - [x] Create a main user with sudo permissions
 - [x] Provide installation of a desktop environment
 - [x] Provide reusable configuration file (json)
