@@ -31,6 +31,6 @@ echo "${admin_username}:${default_password}" | chpasswd
 sed -i '/%wheel ALL=(ALL) ALL/s/^# //g' /etc/sudoers  # activate wheel group
                                                       # by uncommenting special
                                                       # line in sudoers file
-# passwd -l root  # lock the root account if changing /etc/sudoers is implemented
+passwd -l root  # lock the root account
 
 echo "Configured users - OK"
