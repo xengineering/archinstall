@@ -24,10 +24,13 @@ default_password=$2
 
 echo "root:$default_password" | chpasswd
 
-useradd -m $admin_username
-usermod -aG wheel $admin_username
+useradd -m $admin_username  # create user and according home directory
+usermod -aG wheel $admin_username  # add user to sudo-priviledged wheel group
 echo "$admin_username:$default_password" | chpasswd
 
+sed -i '/%wheel ALL=(ALL) ALL/s/^# //g' /etc/sudoers  # activate wheel group
+                                                      # by uncommenting special
+                                                      # line in sudoers file
 # passwd -l root  # lock the root account if changing /etc/sudoers is implemented
 
 echo "Configured users - OK"

@@ -9,7 +9,7 @@ Note: There are many Arch Install scripts out there but I wanted to create my ow
 
 ## Usage
 
-1. Download the Arch Linux .iso file (maybe [here](http://ftp.halifax.rwth-aachen.de/archlinux/iso/2019.11.01/)) and verify it.
+1. Download the Arch Linux .iso file (maybe [here](http://ftp.halifax.rwth-aachen.de/archlinux/iso/latest/)) and verify it.
 2. Write the .iso to a USB stick and boot the machine from this USB stick in UEFI mode.
 3. Download the script with 'curl -L archinstall.xengineering.eu > archinstall.sh'.
 4. Run the script with 'bash archinstall.sh' and follow the instructions.
@@ -29,16 +29,17 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 ## To Do
 
-- [ ] Create a main User with sudo Permissions
-- [ ] Provide LUKS Encryption
-- [ ] Support Installation with WiFi (instead of cable connection)
-- [ ] Provide recommended Package Lists
-- [ ] Modify Mirrorlist
-- [ ] Support BIOS Systems
-- [ ] Support English Localization
+- [ ] Create a main user with sudo permissions
+- [ ] Provide LUKS encryption
+- [ ] Support installation with WiFi (instead of cable connection)
+- [ ] Provide recommended package lists
+- [ ] Modify mirrorlist
+- [ ] Automatic abort in case of errors
+- [ ] Support BIOS systems
+- [ ] Support english localization
 - [ ] Packaged for the AUR
-- [x] Provide Installation of Desktop Environment
-- [x] Provide reusable Configuration File (json)
-- [x] Provide Error Log
-- [x] Automatic Partitioning
-- [x] Write first Version of archinstall.sh
+- [x] Provide installation of a desktop environment
+- [x] Provide reusable configuration file (json)
+- [x] Provide error log
+- [x] Automatic partitioning
+- [x] Write first version of archinstall.sh
