@@ -37,6 +37,7 @@ export main_partition_path="${disk_path}2"
 export hostname=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "hostname")
 export desktop=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "desktop")
 export admin_username=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "admin_username")
+export system_encryption=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "system_encryption")
 
 
 bash confirm_installation.sh $disk
@@ -44,6 +45,14 @@ bash confirm_installation.sh $disk
 bash check_bootmode.sh
 
 bash partition_disk.sh $disk_path
+
+if [ $system_encryption == "yes" ];then
+
+    bash create_crypto_partition.sh $main_partition_path
+
+    bash create_logical_volumes.sh
+
+fi
 
 bash create_filesystems.sh $efi_partition_path $main_partition_path
 
