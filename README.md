@@ -15,16 +15,16 @@ Note: There are many Arch Install scripts out there but I wanted to create my ow
 4. Run the script with 'bash archinstall.sh' and follow the instructions.
 
 
+## Hint for German Users
+
+Execute 'loadkeys de-latin1' after booting to live environment, if you want to set a german keyboard layout. You have to type 'z' for 'y' in loadkeys and 'ß' for the '-' sign.
+
+
 ## Restrictions
 
 - Just UEFI systems
 - Just german localization of the installed system
 - Just installation with cable network connection (no WiFi)
-
-
-## Hint for German Users
-
-Execute 'loadkeys de-latin1' after booting to live environment, if you want to set a german keyboard layout. You have to type 'z' for 'y' in loadkeys and 'ß' for the '-' sign.
 
 
 ## To Do
