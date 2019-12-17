@@ -31,6 +31,6 @@ bash configure_network.sh $hostname
 
 bash configure_users.sh $admin_username $DEFAULT_PASSWORD
 
-bash install_bootloader.sh $boot_partition_path
+bash install_bootloader.sh $efi_partition_path
 
 bash configure_desktop.sh

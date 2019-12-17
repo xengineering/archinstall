@@ -32,8 +32,8 @@ python $REPOSITORY_PATH/util/write_config.py $CONFIG_FILE_PATH
 
 export disk=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "disk")
 export disk_path=/dev/$disk
-export boot_partition_path="${disk_path}1"
-export root_partition_path="${disk_path}2"
+export efi_partition_path="${disk_path}1"
+export main_partition_path="${disk_path}2"
 export hostname=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "hostname")
 export desktop=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "desktop")
 export admin_username=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "admin_username")
@@ -45,9 +45,9 @@ bash check_bootmode.sh
 
 bash partition_disk.sh $disk_path
 
-bash create_filesystems.sh $boot_partition_path $root_partition_path
+bash create_filesystems.sh $efi_partition_path $main_partition_path
 
-bash mount_filesystems.sh $root_partition_path
+bash mount_filesystems.sh $main_partition_path
 
 bash install_packages.sh $desktop
 
@@ -59,6 +59,6 @@ echo "bash second_stage.sh" | arch-chroot /mnt
 
 bash copy_archinstall_log.sh $LOG_FILE_PATH
 
-bash unmount_filesystems.sh $root_partition_path
+bash unmount_filesystems.sh $main_partition_path
 
 bash print_final_message.sh $DEFAULT_PASSWORD
