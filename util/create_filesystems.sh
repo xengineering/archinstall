@@ -25,6 +25,6 @@ main_partition_path=$2  # e.g. /dev/sda2
 mkfs.fat -F32 $efi_partition_path
 fatlabel $efi_partition_path "EFI"
 mkfs.ext4 $main_partition_path
-e2label $main_partition_path "ROOT"
+e2label $main_partition_path "MAIN"
 
 echo "Created filesystems - OK"
