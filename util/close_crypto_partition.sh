@@ -18,21 +18,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-echo "Entering second_stage.sh - OK"
+main_partition_path=$1
 
 
-bash configure_keyboard.sh de-latin1
+cryptsetup close $main_partition_path
 
-bash configure_locales.sh
-
-bash configure_timezone.sh /usr/share/zoneinfo/Europe/Berlin
-
-bash configure_network.sh $hostname
-
-bash recreate_initramfs.sh
-
-bash configure_users.sh $admin_username $DEFAULT_PASSWORD
-
-bash install_bootloader.sh $efi_partition_path
-
-bash configure_desktop.sh
+echo "Closed crypto partition - OK"

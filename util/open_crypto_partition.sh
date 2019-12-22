@@ -23,3 +23,5 @@ DEFAULT_PASSWORD=$2
 
 
 echo -n "$DEFAULT_PASSWORD" | cryptsetup open $main_partition_path main -
+
+echo "Opened crypto partition - OK"

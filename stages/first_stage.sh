@@ -79,4 +79,10 @@ bash copy_archinstall_log.sh $LOG_FILE_PATH
 
 bash unmount_filesystems.sh $boot_partition_path $root_partition_path
 
+if [ $system_encryption == "yes" ];then
+
+    bash close_crypto_partition.sh $main_partition_path
+
+fi
+
 bash print_final_message.sh $DEFAULT_PASSWORD
