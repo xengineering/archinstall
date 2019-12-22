@@ -55,13 +55,17 @@ if [ $system_encryption == "yes" ];then
 
     bash setup_lvm.sh
 
-    export main_partition_path="/dev/SystemVolumeGroup/root"
+    export root_partition_path="/dev/SystemVolumeGroup/root"
+
+else
+
+    export root_partition_path=$main_partition_path
 
 fi
 
-bash create_filesystems.sh $efi_partition_path $main_partition_path
+bash create_filesystems.sh $efi_partition_path $boot_partition_path $root_partition_path
 
-bash mount_filesystems.sh $main_partition_path
+bash mount_filesystems.sh $boot_partition_path $root_partition_path
 
 bash install_packages.sh $desktop
 
@@ -73,6 +77,6 @@ echo "bash second_stage.sh" | arch-chroot /mnt
 
 bash copy_archinstall_log.sh $LOG_FILE_PATH
 
-bash unmount_filesystems.sh $main_partition_path
+bash unmount_filesystems.sh $boot_partition_path $root_partition_path
 
 bash print_final_message.sh $DEFAULT_PASSWORD

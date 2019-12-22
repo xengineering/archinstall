@@ -19,12 +19,15 @@
 
 
 efi_partition_path=$1  # e.g. /dev/sda1
-main_partition_path=$2  # e.g. /dev/sda2
+boot_partition_path=$2  # e.g. /dev/sda2
+root_partition_path=$3  # e.g. /dev/sda3 or /dev/SystemVolumeGroup/root
 
 
 mkfs.fat -F32 $efi_partition_path
 fatlabel $efi_partition_path "EFI"
-mkfs.ext4 $main_partition_path
-e2label $main_partition_path "MAIN"
+mkfs.ext4 $boot_partition_path
+e2label $boot_partition_path "BOOT"
+mkfs.ext4 $root_partition_path
+e2label $root_partition_path "MAIN"
 
 echo "Created filesystems - OK"
