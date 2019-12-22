@@ -18,9 +18,6 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-main_partition_path=$1
-
-
-cryptsetup close $main_partition_path
+cryptsetup close main
 
 echo "Closed crypto partition - OK"
