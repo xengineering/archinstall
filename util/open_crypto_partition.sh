@@ -22,4 +22,4 @@ main_partition_path=$1
 DEFAULT_PASSWORD=$2
 
 
-echo -n "$DEFAULT_PASSWORD" | cryptsetup luksFormat $main_partition_path -
+echo -n "$DEFAULT_PASSWORD" | cryptsetup open $main_partition_path main -

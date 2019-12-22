@@ -51,9 +51,9 @@ if [ $system_encryption == "yes" ];then
 
     bash format_crypto_partition.sh $main_partition_path $DEFAULT_PASSWORD
 
-    bash open_crypto_partition.sh
+    bash open_crypto_partition.sh $main_partition_path $DEFAULT_PASSWORD
 
-    bash create_logical_volumes.sh
+    bash create_logical_volumes.sh $main_partition_path
 
 fi
 
