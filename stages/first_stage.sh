@@ -53,9 +53,7 @@ if [ $system_encryption == "yes" ];then
 
     bash open_crypto_partition.sh $main_partition_path $DEFAULT_PASSWORD
 
-    bash setup_lvm.sh
-
-    export root_partition_path="/dev/SystemVolumeGroup/root"
+    export root_partition_path="/dev/mapper/main"
 
 else
 
