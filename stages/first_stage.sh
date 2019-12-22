@@ -33,7 +33,8 @@ python $REPOSITORY_PATH/util/write_config.py $CONFIG_FILE_PATH
 export disk=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "disk")
 export disk_path=/dev/$disk
 export efi_partition_path="${disk_path}1"
-export main_partition_path="${disk_path}2"
+export boot_partition_path="${disk_path}2"
+export main_partition_path="${disk_path}3"
 export hostname=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "hostname")
 export desktop=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "desktop")
 export admin_username=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "admin_username")
@@ -48,7 +49,9 @@ bash partition_disk.sh $disk_path
 
 if [ $system_encryption == "yes" ];then
 
-    bash create_crypto_partition.sh $main_partition_path
+    bash format_crypto_partition.sh $main_partition_path $DEFAULT_PASSWORD
+
+    bash open_crypto_partition.sh
 
     bash create_logical_volumes.sh
 
