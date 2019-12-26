@@ -23,7 +23,7 @@ desktop_wanted=$1  # e.g. "yes"
 
 pacstrap /mnt base linux linux-firmware dhcpcd nano sudo grub efibootmgr
 if [ "$desktop_wanted" = "yes" ]; then
-    pacstrap /mnt xorg lightdm lightdm-gtk-greeter light-locker accountsservice gnome-screensaver xfce4 mousepad
+    pacstrap /mnt xorg lightdm lightdm-gtk-greeter light-locker accountsservice gnome-screensaver xfce4-pulseaudio-plugin network-manager-applet xfce4 mousepad
 fi
 
 echo "Installed packages - OK"
