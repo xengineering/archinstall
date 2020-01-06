@@ -18,5 +18,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+rm -rf /etc/pacman.d/gnupg
+pacman-key --init
+pacman-key --populate archlinux
+
 
 echo "Resetted pacman keys - OK"
