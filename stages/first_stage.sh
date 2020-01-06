@@ -49,8 +49,6 @@ bash create_filesystems.sh $boot_partition_path $root_partition_path
 
 bash mount_filesystems.sh $root_partition_path
 
-bash reset_pacman_keys.sh
-
 bash install_packages.sh $desktop
 
 bash install_archinstall.sh $REPOSITORY_PATH
