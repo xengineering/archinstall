@@ -10,7 +10,7 @@ Note: There are many Arch Install scripts out there but I wanted to create my ow
 ## Usage
 
 1. Download the Arch Linux .iso file (maybe [here](http://ftp.halifax.rwth-aachen.de/archlinux/iso/latest/)) and verify it.
-2. Write the .iso to a USB stick and boot the machine from this USB stick in UEFI mode.
+2. Write the .iso to a USB stick (maybe with this [tool](https://www.balena.io/etcher/)) and boot the machine from this USB stick in UEFI mode.
 3. Download the script with 'curl -L archinstall.xengineering.eu > archinstall.sh'.
 4. Run the script with 'bash archinstall.sh' and follow the instructions.
 
