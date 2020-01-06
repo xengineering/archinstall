@@ -15,9 +15,17 @@ Note: There are many Arch Install scripts out there but I wanted to create my ow
 4. Run the script with 'bash archinstall.sh' and follow the instructions.
 
 
-## Hint for German Users
+### Hint for German Users
 
 Execute 'loadkeys de-latin1' after booting to live environment, if you want to set a german keyboard layout. You have to type 'z' for 'y' in loadkeys and 'ß' for the '-' sign.
+
+
+### Usage with VirtualBox
+
+1. Create a VirtualBox virtual machine (VM) for 64-bit Arch Linux with the default or customized settings.
+2. Enable Extensible Firmware Interface (EFI) in the settings of this VM.
+3. Start the VM and provide the .iso file if you are asked to.
+4. You booted the Arch Linux live environment in VirtualBox. Proceed with the normal use of archinstall.
 
 
 ## Restrictions
