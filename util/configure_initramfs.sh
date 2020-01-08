@@ -18,21 +18,14 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-echo "Entering second_stage.sh - OK"
+new_hooks_config_line="HOOKS=(base udev autodetect keyboard keymap modconf block encrypt filesystems fsck)"
+echo "new_hooks_config_line: $new_hooks_config_line"
+old_hooks_config_line=$(cat /etc/mkinitcpio.conf | grep "^HOOKS=")
+echo "old_hooks_config_line: $old_hooks_config_line"
+
+sed -i "s|$old_hooks_config_line|$new_hooks_config_line|" /etc/mkinitcpio.conf
+
+mkinitcpio -P
 
 
-bash configure_keyboard.sh de-latin1
-
-bash configure_locales.sh
-
-bash configure_timezone.sh /usr/share/zoneinfo/Europe/Berlin
-
-bash configure_network.sh $hostname
-
-bash configure_initramfs.sh
-
-bash configure_users.sh $admin_username $DEFAULT_PASSWORD
-
-bash install_bootloader.sh $efi_partition_path $system_encryption
-
-bash configure_desktop.sh
+echo "Configured initramfs - OK"
