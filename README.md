@@ -39,7 +39,6 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 (Highest priority first)
 
-- [ ] Provide LUKS encryption
 - [ ] Create swap partition for suspension to disk
 - [ ] Modify mirrorlist
 - [ ] Automatic abort in case of errors
@@ -54,6 +53,7 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 (Last finished task first)
 
+- [x] Provide LUKS encryption
 - [x] Create a main user with sudo permissions
 - [x] Provide installation of a desktop environment
 - [x] Provide reusable configuration file (json)
