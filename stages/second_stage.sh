@@ -33,6 +33,6 @@ bash configure_initramfs.sh
 
 bash configure_users.sh $admin_username $DEFAULT_PASSWORD
 
-bash install_bootloader.sh $efi_partition_path $system_encryption
+bash install_bootloader.sh $efi_partition_path $system_encryption $main_partition_path
 
 bash configure_desktop.sh

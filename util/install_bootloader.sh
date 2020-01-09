@@ -20,6 +20,7 @@
 
 efi_partition_path=$1
 system_encryption=$2
+main_partition_path=$3
 
 
 ############ Add encryption setting in /etc/default/grub before calling grub-mkconfig
@@ -34,7 +35,7 @@ grub-install --target=x86_64-efi --efi-directory=/mnt --bootloader-id=GRUB \
 
 if [ $system_encryption == "yes" ];then
 
-    cryptdevice_uuid=$(lsblk --fs | grep "${basename $main_partition_path}" | awk '{print $3}')
+    cryptdevice_uuid=$(lsblk --fs | grep "$(basename $main_partition_path)" | awk '{print $3}')
     echo "cryptdevice_uuid: $cryptdevice_uuid"
     old_kernel_param_line=$(cat /etc/default/grub | grep "GRUB_CMDLINE_LINUX_DEFAULT")
     echo "old_kernel_param_line: $old_kernel_param_line"
