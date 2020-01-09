@@ -39,11 +39,14 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 (Highest priority first)
 
-- [ ] Create swap partition for suspension to disk
-- [ ] Modify mirrorlist
+- [ ] Use LVM
+- [ ] Create swap partition
+- [ ] Enable suspension to disk
+- [ ] Optimize mirrorlist
 - [ ] Automatic abort in case of errors
 - [ ] Support installation with WiFi (instead of cable connection)
 - [ ] Provide recommended package lists
+- [ ] Set a beautiful theme
 - [ ] Support BIOS systems
 - [ ] Support english localization
 - [ ] Package for the AUR
@@ -53,7 +56,7 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 (Last finished task first)
 
-- [x] Provide LUKS encryption
+- [x] Provide full system encryption with LUKS
 - [x] Create a main user with sudo permissions
 - [x] Provide installation of a desktop environment
 - [x] Provide reusable configuration file (json)
