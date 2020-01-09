@@ -23,12 +23,6 @@ system_encryption=$2
 main_partition_path=$3
 
 
-############ Add encryption setting in /etc/default/grub before calling grub-mkconfig
-## to generate /boot/grub/grub.cfg
-
-## See: https://wiki.archlinux.org/index.php/Dm-crypt/System_configuration#Boot_loader
-
-
 mount $efi_partition_path /mnt
 grub-install --target=x86_64-efi --efi-directory=/mnt --bootloader-id=GRUB \
 --removable
