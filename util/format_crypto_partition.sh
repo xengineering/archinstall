@@ -18,20 +18,10 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-default_password=$1
+main_partition_path=$1
+DEFAULT_PASSWORD=$2
 
 
-cat << EOF
-#####################################################################
+echo -n "$DEFAULT_PASSWORD" | cryptsetup luksFormat $main_partition_path -
 
-    The default password for your user and root is '${default_password}'.
-    It is also the default password for drive encryption.
-    You can now power off your machine with 'poweroff',
-    remove the installation media and boot your new
-    Arch Linux machine!
-
-#####################################################################
-
-EOF
-
-echo "Printed final message - OK"
+echo "Formatted crypto partition - OK"

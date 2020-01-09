@@ -18,9 +18,12 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-root_partition_path=$1  # e.g. /dev/sda2
+boot_partition_path=$1
+root_partition_path=$2
 
 
 mount $root_partition_path /mnt
+mkdir /mnt/boot
+mount $boot_partition_path /mnt/boot
 
 echo "Mounted filesystems - OK"

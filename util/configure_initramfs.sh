@@ -18,20 +18,14 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-default_password=$1
+new_hooks_config_line="HOOKS=(base udev autodetect keyboard keymap modconf block encrypt filesystems fsck)"
+echo "new_hooks_config_line: $new_hooks_config_line"
+old_hooks_config_line=$(cat /etc/mkinitcpio.conf | grep "^HOOKS=")
+echo "old_hooks_config_line: $old_hooks_config_line"
+
+sed -i "s|$old_hooks_config_line|$new_hooks_config_line|" /etc/mkinitcpio.conf
+
+mkinitcpio -P
 
 
-cat << EOF
-#####################################################################
-
-    The default password for your user and root is '${default_password}'.
-    It is also the default password for drive encryption.
-    You can now power off your machine with 'poweroff',
-    remove the installation media and boot your new
-    Arch Linux machine!
-
-#####################################################################
-
-EOF
-
-echo "Printed final message - OK"
+echo "Configured initramfs - OK"

@@ -42,7 +42,7 @@ print("Please type in the hostname of your new machine:")
 config["hostname"] = input()
 
 
-# Desktop or no Desktop
+# Desktop or no desktop
 
 print("Do you want to install a desktop? [Y/n]:")
 answer = input()
@@ -56,6 +56,18 @@ else:
 
 print("Please select your username (like 'paul' or 'alice'):")
 config["admin_username"] = input()
+
+
+# System encryption
+
+print("System encryption protects all your data if your device is stolen.")
+print("A second password will be required at startup to decrypt the system.")
+print("Do you want to encrypt your system? [Y/n]")
+answer = input()
+if answer in ["", "Y", "y", "Yes", "yes"]:
+    config["system_encryption"] = "yes"
+else:
+    config["system_encryption"] = "no"
 
 
 # Write config to json file

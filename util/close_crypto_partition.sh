@@ -18,20 +18,6 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-default_password=$1
+cryptsetup close main
 
-
-cat << EOF
-#####################################################################
-
-    The default password for your user and root is '${default_password}'.
-    It is also the default password for drive encryption.
-    You can now power off your machine with 'poweroff',
-    remove the installation media and boot your new
-    Arch Linux machine!
-
-#####################################################################
-
-EOF
-
-echo "Printed final message - OK"
+echo "Closed crypto partition - OK"

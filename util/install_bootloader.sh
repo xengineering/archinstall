@@ -18,13 +18,35 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-boot_partition_path=$1
+efi_partition_path=$1
+system_encryption=$2
+main_partition_path=$3
 
 
-mount $boot_partition_path /mnt
+############ Add encryption setting in /etc/default/grub before calling grub-mkconfig
+## to generate /boot/grub/grub.cfg
+
+## See: https://wiki.archlinux.org/index.php/Dm-crypt/System_configuration#Boot_loader
+
+
+mount $efi_partition_path /mnt
 grub-install --target=x86_64-efi --efi-directory=/mnt --bootloader-id=GRUB \
 --removable
+
+if [ $system_encryption == "yes" ];then
+
+    cryptdevice_uuid=$(lsblk --fs | grep "$(basename $main_partition_path)" | awk '{print $3}')
+    echo "cryptdevice_uuid: $cryptdevice_uuid"
+    old_kernel_param_line=$(cat /etc/default/grub | grep "GRUB_CMDLINE_LINUX_DEFAULT")
+    echo "old_kernel_param_line: $old_kernel_param_line"
+    new_kernal_param_line="GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet cryptdevice=UUID=${cryptdevice_uuid}:main root=/dev/mapper/main\""
+    echo "new_kernel_param_line: $new_kernal_param_line"
+    echo "Adding kernel parameters to /etc/default/grub"
+    sed -i "s|$old_kernel_param_line|$new_kernal_param_line|" /etc/default/grub
+
+fi
+
 grub-mkconfig -o /boot/grub/grub.cfg
-umount $boot_partition_path
+umount $efi_partition_path
 
 echo "Installed bootloader - OK"

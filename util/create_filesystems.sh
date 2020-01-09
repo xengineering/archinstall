@@ -18,12 +18,15 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-boot_partition_path=$1  # e.g. /dev/sda1
-root_partition_path=$2  # e.g. /dev/sda2
+efi_partition_path=$1  # e.g. /dev/sda1
+boot_partition_path=$2  # e.g. /dev/sda2
+root_partition_path=$3  # e.g. /dev/sda3 or /dev/SystemVolumeGroup/root
 
 
-mkfs.fat -F32 $boot_partition_path
-fatlabel $boot_partition_path "BOOT"
+mkfs.fat -F32 $efi_partition_path
+fatlabel $efi_partition_path "EFI"
+mkfs.ext4 $boot_partition_path
+e2label $boot_partition_path "BOOT"
 mkfs.ext4 $root_partition_path
 e2label $root_partition_path "ROOT"
 
