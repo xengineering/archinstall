@@ -31,21 +31,23 @@ export DEFAULT_PASSWORD="archinstall"
 
 mkdir $(dirname "$CONFIG_FILE_PATH")
 touch $CONFIG_FILE_PATH
-python $REPOSITORY_PATH/util/write_config.py $CONFIG_FILE_PATH
+python -u $REPOSITORY_PATH/util/write_config.py $CONFIG_FILE_PATH
 
 
 # Reading config values to bash
 
-export disk=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "disk")
+export disk=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "disk")
 export disk_path=/dev/$disk
 export efi_partition_path="${disk_path}1"
 export boot_partition_path="${disk_path}2"
 export main_partition_path="${disk_path}3"
-export hostname=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "hostname")
-export desktop=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "desktop")
-export admin_username=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "admin_username")
-export system_encryption=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "system_encryption")
+export hostname=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "hostname")
+export desktop=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "desktop")
+export admin_username=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "admin_username")
+export system_encryption=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "system_encryption")
 
+
+bash confirm_installation.sh $disk
 
 if [ "$(bash check_bootmode.sh)" == "Booted with UEFI" ];then
     echo "Booted with UEFI - OK"
@@ -59,10 +61,6 @@ else
 fi
 
 exit
-
-bash confirm_installation.sh $disk
-
-bash check_bootmode.sh
 
 bash partition_disk.sh $disk_path
 
