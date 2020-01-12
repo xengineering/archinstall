@@ -47,7 +47,7 @@ export admin_username=$(python $REPOSITORY_PATH/util/read_config_string.py $CONF
 export system_encryption=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "system_encryption")
 
 
-if [ $(check_bootmode.sh) == "Booted with UEFI" ];then
+if [ "$(check_bootmode.sh)" == "Booted with UEFI" ];then
 
     echo "Booted with UEFI - OK"
 
@@ -68,9 +68,7 @@ bash partition_disk.sh $disk_path
 if [ $system_encryption == "yes" ];then
 
     bash format_crypto_partition.sh $main_partition_path $DEFAULT_PASSWORD
-
     bash open_crypto_partition.sh $main_partition_path $DEFAULT_PASSWORD
-
     export root_partition_path="/dev/mapper/main"
 
 else
