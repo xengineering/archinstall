@@ -19,11 +19,13 @@
 
 
 disk_path=$1  # e.g. /dev/sda
+boot_mode=$2  # "UEFI" or "BIOS"
 
 
-wipefs -a $disk_path  # make sure that fdisk does not ask for removing
-                      # signatures which breaks the script
-fdisk $disk_path << EOF
+if [ "$boot_mode" == "UEFI" ]; then
+    wipefs -a $disk_path  # make sure that fdisk does not ask for removing
+                          # signatures which breaks the script
+    fdisk $disk_path << EOF
 g
 n
 1
@@ -41,4 +43,22 @@ p
 w
 EOF
 
-echo "Partitioned disk - OK"
+    echo "Partitioned disk for UEFI/GPT- OK"
+elif [ "$boot_mode" == "BIOS" ]; then
+    wipefs -a $disk_path  # make sure that fdisk does not ask for removing
+                          # signatures which breaks the script
+    fdisk $disk_path << EOF
+o
+n
+p
+1
+
+
+p
+w
+EOF
+
+    echo "Partitioned disk for BIOS/MBR - OK"
+else
+
+fi

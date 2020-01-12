@@ -23,7 +23,9 @@ root_partition_path=$2
 
 
 cd /root
-umount $boot_partition_path
+if [ "$boot_partition_path" != "/dev/null" ];then
+    umount $boot_partition_path
+fi
 umount $root_partition_path
 
 echo "Unmounted filesystems - OK"

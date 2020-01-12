@@ -21,11 +21,19 @@
 efi_partition_path=$1
 system_encryption=$2
 main_partition_path=$3
+boot_mode=$4  # "UEFI" or "BIOS"
 
 
-mount $efi_partition_path /mnt
-grub-install --target=x86_64-efi --efi-directory=/mnt --bootloader-id=GRUB \
---removable
+if [ "$boot_mode" == "UEFI" ]; then
+    mount $efi_partition_path /mnt
+    grub-install --target=x86_64-efi --efi-directory=/mnt --bootloader-id=GRUB \
+    --removable
+elif [ "$boot_mode" == "BIOS" ]; then
+    grub-install --target=i386-pc $disk_path
+else
+    echo "Unknown boot mode - FAILED"
+    exit
+fi
 
 if [ $system_encryption == "yes" ];then
 
@@ -41,6 +49,9 @@ if [ $system_encryption == "yes" ];then
 fi
 
 grub-mkconfig -o /boot/grub/grub.cfg
-umount $efi_partition_path
+
+if [ "$boot_mode" == "UEFI" ];then
+    umount $efi_partition_path
+fi
 
 echo "Installed bootloader - OK"

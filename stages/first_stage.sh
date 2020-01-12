@@ -38,9 +38,6 @@ python -u $REPOSITORY_PATH/util/write_config.py $CONFIG_FILE_PATH
 
 export disk=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "disk")
 export disk_path=/dev/$disk
-export efi_partition_path="${disk_path}1"
-export boot_partition_path="${disk_path}2"
-export main_partition_path="${disk_path}3"
 export hostname=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "hostname")
 export desktop=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "desktop")
 export admin_username=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "admin_username")
@@ -52,17 +49,21 @@ bash confirm_installation.sh $disk
 if [ "$(bash check_bootmode.sh)" == "Booted with UEFI" ];then
     echo "Booted with UEFI - OK"
     export boot_mode="UEFI"
+    export efi_partition_path="${disk_path}1"
+    export boot_partition_path="${disk_path}2"
+    export main_partition_path="${disk_path}3"
 elif [ "$(bash check_bootmode.sh)" == "Booted with legacy boot / BIOS" ];then
     echo "Booted with BIOS - OK"
     export boot_mode="BIOS"
+    export efi_partition_path="/dev/null"
+    export boot_partition_path="/dev/null"
+    export main_partition_path="${disk_path}1"
 else
     echo "Unknown boot mode - FAILED"
     exit
 fi
 
-exit
-
-bash partition_disk.sh $disk_path
+bash partition_disk.sh $disk_path $boot_mode
 
 if [ $system_encryption == "yes" ];then
     bash format_crypto_partition.sh $main_partition_path $DEFAULT_PASSWORD

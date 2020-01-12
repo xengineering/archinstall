@@ -23,7 +23,10 @@ root_partition_path=$2
 
 
 mount $root_partition_path /mnt
-mkdir /mnt/boot
-mount $boot_partition_path /mnt/boot
+
+if [ "$boot_partition_path" != "/dev/null" ];then
+    mkdir /mnt/boot
+    mount $boot_partition_path /mnt/boot
+fi
 
 echo "Mounted filesystems - OK"
