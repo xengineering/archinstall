@@ -48,13 +48,14 @@ export system_encryption=$(python $REPOSITORY_PATH/util/read_config_string.py $C
 
 
 if [ "$(bash check_bootmode.sh)" == "Booted with UEFI" ];then
-
     echo "Booted with UEFI - OK"
-
-else
-
+    export boot_mode="UEFI"
+elif [ "$(bash check_bootmode.sh)" == "Booted with legacy boot / BIOS" ];then
     echo "Booted with BIOS - OK"
-
+    export boot_mode="BIOS"
+else
+    echo "Unknown boot mode - FAILED"
+    exit
 fi
 
 exit
@@ -66,15 +67,11 @@ bash check_bootmode.sh
 bash partition_disk.sh $disk_path
 
 if [ $system_encryption == "yes" ];then
-
     bash format_crypto_partition.sh $main_partition_path $DEFAULT_PASSWORD
     bash open_crypto_partition.sh $main_partition_path $DEFAULT_PASSWORD
     export root_partition_path="/dev/mapper/main"
-
 else
-
     export root_partition_path=$main_partition_path
-
 fi
 
 bash create_filesystems.sh $efi_partition_path $boot_partition_path $root_partition_path
@@ -94,9 +91,7 @@ bash copy_archinstall_log.sh $LOG_FILE_PATH
 bash unmount_filesystems.sh $boot_partition_path $root_partition_path
 
 if [ $system_encryption == "yes" ];then
-
     bash close_crypto_partition.sh $main_partition_path
-
 fi
 
 bash print_final_message.sh $DEFAULT_PASSWORD
