@@ -26,26 +26,39 @@ import subprocess
 config_file_path = sys.argv[1]  # e.g. "/etc/archinstall/config.json"
 
 
+def print_separator():
+    print()
+    print("#################################################################")
+    print()
+
+
 config = {}
 
 
 # Disk selection
 
-print("Please type in the 'NAME' of the hard disk on which you want to install Arch Linux:")
+print_separator()
+print("Please type in the 'NAME' of the hard disk on which you want to \ninstall Arch Linux:")
+print()
 subprocess.run("lsblk -o NAME,SIZE,TYPE | grep -v part", shell=True)
-config["disk"] = input()
+print()
+config["disk"] = input(">>> ")
 
 
 # Select hostname
 
+print_separator()
 print("Please type in the hostname of your new machine:")
-config["hostname"] = input()
+print()
+config["hostname"] = input(">>> ")
 
 
 # Desktop or no desktop
 
+print_separator()
 print("Do you want to install a desktop? [Y/n]:")
-answer = input()
+print()
+answer = input(">>> ")
 if answer in ["", "Y", "y", "Yes", "yes"]:
     config["desktop"] = "yes"
 else:
@@ -54,16 +67,20 @@ else:
 
 # Admin account
 
+print_separator()
 print("Please select your username (like 'paul' or 'alice'):")
-config["admin_username"] = input()
+print()
+config["admin_username"] = input(">>> ")
 
 
 # System encryption
 
+print_separator()
 print("System encryption protects all your data if your device is stolen.")
 print("A second password will be required at startup to decrypt the system.")
 print("Do you want to encrypt your system? [Y/n]")
-answer = input()
+print()
+answer = input(">>> ")
 if answer in ["", "Y", "y", "Yes", "yes"]:
     config["system_encryption"] = "yes"
 else:
@@ -79,7 +96,10 @@ with open(config_file_path, 'w') as f:
 
 # Output json config for logging purpose
 
+print_separator()
 print("Config for this installation:")
+print()
 print(config_json)
+print_separator()
 
 print("Wrote config - OK")
