@@ -21,6 +21,12 @@
 echo "Entering first_stage.sh - OK"
 
 
+# Settings
+
+export CONFIG_FILE_PATH="/etc/archinstall/config.json"
+export DEFAULT_PASSWORD="archinstall"
+
+
 # Write config
 
 mkdir $(dirname "$CONFIG_FILE_PATH")

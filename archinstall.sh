@@ -30,14 +30,12 @@
 
 # Settings
 
-export TESTSERVER="8.8.8.8"  # hostnames will not work properly
+export TESTSERVER="archlinux.org"  # IP or hostname
 export NETWORK_DEADLINE=1  # in seconds
-export REPOSITORY_URL="https://github.com/xengineering/archinstall/"
-export REPOSITORY_PATH="/opt/archinstall"
-export BRANCH_OR_COMMIT="master"  # select another branch name or commit hash if needed
+export REPOSITORY_URL="https://github.com/xengineering/archinstall/"  # remote
+export REPOSITORY_PATH="/opt/archinstall"  # local
+export BRANCH_OR_COMMIT="master"  # select another branch or commit hash for checkout if needed
 export LOG_FILE_PATH="/var/log/archinstall.log"
-export CONFIG_FILE_PATH="/etc/archinstall/config.json"
-export DEFAULT_PASSWORD="archinstall"
 
 
 # PATH expansion
