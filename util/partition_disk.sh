@@ -23,6 +23,7 @@ boot_mode=$2  # "UEFI" or "BIOS"
 
 
 if [ "$boot_mode" == "UEFI" ]; then
+    echo "Partitioning for UEFI mode."
     wipefs -a $disk_path  # make sure that fdisk does not ask for removing
                           # signatures which breaks the script
     fdisk $disk_path << EOF
@@ -45,6 +46,7 @@ EOF
 
     echo "Partitioned disk for UEFI/GPT- OK"
 elif [ "$boot_mode" == "BIOS" ]; then
+    echo "Partitioning for BIOS mode."
     wipefs -a $disk_path  # make sure that fdisk does not ask for removing
                           # signatures which breaks the script
     fdisk $disk_path << EOF
