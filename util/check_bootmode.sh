@@ -21,6 +21,5 @@
 if [ -d "/sys/firmware/efi/efivars" ]; then
     echo "Booted with UEFI"
 else
-    echo "Not booted with UEFI. Please enable it in your mainboard settings. - FAILED"
-    exit
+    echo "Booted with legacy boot / BIOS"
 fi
