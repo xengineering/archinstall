@@ -39,6 +39,7 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 (Highest priority first)
 
+- [ ] Support BIOS systems
 - [ ] Use LVM
 - [ ] Create swap partition
 - [ ] Enable suspension to disk
@@ -47,7 +48,6 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 - [ ] Support installation with WiFi (instead of cable connection)
 - [ ] Provide recommended package lists
 - [ ] Set a beautiful theme
-- [ ] Support BIOS systems
 - [ ] Support english localization
 - [ ] Package for the AUR
 
