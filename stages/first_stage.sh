@@ -47,7 +47,7 @@ export admin_username=$(python $REPOSITORY_PATH/util/read_config_string.py $CONF
 export system_encryption=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "system_encryption")
 
 
-if [ "$(check_bootmode.sh)" == "Booted with UEFI" ];then
+if [ "$(bash check_bootmode.sh)" == "Booted with UEFI" ];then
 
     echo "Booted with UEFI - OK"
 
