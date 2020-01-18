@@ -38,16 +38,19 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 (Highest priority first)
 
 - [ ] Support BIOS systems
-- [ ] Create swap partition
-- [ ] Enable suspension to disk
-- [ ] Optimize mirrorlist
 - [ ] Automatic abort in case of errors
+- [ ] Optimize mirrorlist
 - [ ] Support installation with WiFi (instead of cable connection)
 - [ ] Provide recommended package lists
 - [ ] Set a beautiful theme
 - [ ] Support english localization
+- [ ] Create swap partition
+- [ ] Enable suspension to disk
 - [ ] Use LVM
 - [ ] Package for the AUR
+- [ ] Provide a custom boot stick for archinstall
+- [ ] Provide automated testing
+- [ ] Provide automated system maintenance
 
 
 ## Done
