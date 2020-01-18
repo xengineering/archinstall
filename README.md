@@ -56,6 +56,7 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 (Last finished task first)
 
+- [x] Switch to Cinnamon desktop
 - [x] Provide full system encryption with LUKS
 - [x] Create a main user with sudo permissions
 - [x] Provide installation of a desktop environment
