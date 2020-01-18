@@ -21,7 +21,7 @@
 desktop_wanted=$1  # e.g. "yes"
 
 
-pacstrap /mnt base linux linux-firmware dhcpcd nano sudo grub efibootmgr
+pacstrap /mnt base linux linux-firmware networkmanager nano sudo grub efibootmgr
 if [ "$desktop_wanted" = "yes" ]; then
     pacstrap /mnt xorg lightdm lightdm-gtk-greeter cinnamon gnome-terminal papirus-icon-theme gedit
 fi
