@@ -37,6 +37,6 @@ bash configure_users.sh $admin_username $DEFAULT_PASSWORD
 
 bash install_bootloader.sh $efi_partition_path $system_encryption $main_partition_path
 
-if [ "$desktop_wanted" = "yes" ]; then
+if [ "$desktop" = "yes" ]; then
     bash configure_desktop.sh $desktop
 fi
