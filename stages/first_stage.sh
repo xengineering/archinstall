@@ -97,8 +97,8 @@ fi
 
 if [ "$luks_encryption" == "no" ];then
     if [ "$boot_mode" == "bios" ];then
-        mkfs.ext4 ${disk_path}1
-        e2label ${disk_path}1 "ROOT"
+        mkfs.ext4 ${path_to_disk}1
+        e2label ${path_to_disk}1 "ROOT"
     elif [ "$boot_mode" == "uefi" ];then
         echo "Sorry, UEFI is not ready to use ..."
         exit 1
