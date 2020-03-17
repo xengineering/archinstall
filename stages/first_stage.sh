@@ -111,4 +111,6 @@ elif [ "$luks_encryption" == "yes" ];then
     else
         echo "oh no"
     fi
+else
+    echo "oh no"
 fi
