@@ -51,6 +51,8 @@ fi
 
 if [ "$boot_mode" == "uefi" ]; then
     echo "Partitioning for UEFI mode."
+    echo "Sorry, this is still untested and you should not try it ..."
+    exit 1
     wipefs -a $path_to_disk  # make sure that fdisk does not ask for removing
                              # signatures which breaks the script
     fdisk $path_to_disk << EOF
@@ -88,4 +90,25 @@ w
 EOF
 
     echo "Partitioned disk for BIOS/MBR - OK"
+fi
+
+
+# Format partitions
+
+if [ "$luks_encryption" == "no" ];then
+    if [ "$boot_mode" == "bios" ];then
+        echo "no/bios"
+    elif [ "$boot_mode" == "uefi" ];then
+        echo "no/uefi"
+    else
+        echo "oh no"
+    fi
+elif [ "$luks_encryption" == "yes" ];then
+    if [ "$boot_mode" == "bios" ];then
+        echo "yes/bios"
+    elif [ "$boot_mode" == "uefi" ];then
+        echo "yes/uefi"
+    else
+        echo "oh no"
+    fi
 fi

@@ -67,7 +67,7 @@ export DEFAULT_PASSWORD="archinstall"
 
 export boot_mode="unknown"  # alternatives: "bios" or "uefi"
 export path_to_disk="/dev/null"  # e.g. "/dev/sda"
-export luks_encryption="unknown"  # alternatives: "yes" or "no"
+export luks_encryption="no"  # alternative: "yes"
 export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"
 export locales_to_generate="de_DE.UTF-8 UTF-8;de_DE ISO-8859-1;de_DE@euro ISO-8859-15"
 export keymap="de-latin1"
