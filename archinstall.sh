@@ -56,9 +56,9 @@ EOF
 
 export BRANCH="master"  # possible alternatives: "devel" or "feature_<myfeature>"
 export INTERNET_TEST_SERVER="archlinux.org"
-export INTERNET_TEST_PING_TIMEOUT=1  # seconds
-export FIRST_STAGE_LINK=""
-export SECOND_STAGE_LINK=""
+export INTERNET_TEST_PING_TIMEOUT=1  # in seconds
+export FIRST_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/first_stage.sh"
+export SECOND_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/second_stage.sh"
 export PACKAGE_LIST="base linux linux-firmware nano networkmanager"
 export DEFAULT_PASSWORD="archinstall"
 
@@ -66,6 +66,7 @@ export DEFAULT_PASSWORD="archinstall"
 # Variables
 
 export boot_mode="unknown"  # alternatives: "bios" or "uefi"
+export path_to_disk="/dev/null"  # e.g. "/dev/sda"
 export luks_encryption="unknown"  # alternatives: "yes" or "no"
 export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"
 export locales_to_generate="de_DE.UTF-8 UTF-8;de_DE ISO-8859-1;de_DE@euro ISO-8859-15"
@@ -73,7 +74,23 @@ export keymap="de-latin1"
 export hostname="archlinux"  # will be set to a user-chosen hostname
 
 
+# Check internet connection
+
+if ping -w $INTERNET_TEST_PING_TIMEOUT -c 1 $INTERNET_TEST_SERVER; then
+    echo "Internet connection is ready - OK"
+    echo ""
+else
+    echo "Could not reach INTERNET_TEST_SERVER '$INTERNET_TEST_SERVER' - FAILED"
+    exit
+fi
+
+
+# Update the system clock
+
+timedatectl set-ntp true
+
+
 # Download and run first stage
 
-curl https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/first_stage.sh > /root/first_stage.sh
+curl $FIRST_STAGE_LINK > /root/first_stage.sh
 bash /root/first_stage.sh
