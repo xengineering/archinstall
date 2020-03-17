@@ -97,20 +97,27 @@ fi
 
 if [ "$luks_encryption" == "no" ];then
     if [ "$boot_mode" == "bios" ];then
-        echo "no/bios"
+        mkfs.ext4 ${disk_path}1
+        e2label ${disk_path}1 "ROOT"
     elif [ "$boot_mode" == "uefi" ];then
-        echo "no/uefi"
+        echo "Sorry, UEFI is not ready to use ..."
+        exit 1
     else
-        echo "oh no"
+        echo "Unknown boot_mode! - FAILED"
+        exit 1
     fi
 elif [ "$luks_encryption" == "yes" ];then
+    echo "Sorry, LUKS encryption is not ready to use ..."
+    exit 1
     if [ "$boot_mode" == "bios" ];then
         echo "yes/bios"
     elif [ "$boot_mode" == "uefi" ];then
         echo "yes/uefi"
     else
-        echo "oh no"
+        echo "Unknown boot_mode! - FAILED"
+        exit 1
     fi
 else
-    echo "oh no"
+    echo "luks_encryption not 'yes' or 'no'! - FAILED"
+    exit 1
 fi
