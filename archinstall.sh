@@ -54,6 +54,7 @@ EOF
 
 # Constants
 
+export BRANCH="master"  # possible alternatives: "devel" or "feature_<myfeature>"
 export INTERNET_TEST_SERVER="archlinux.org"
 export INTERNET_TEST_PING_TIMEOUT=1  # seconds
 export FIRST_STAGE_LINK=""
@@ -70,3 +71,9 @@ export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"
 export locales_to_generate="de_DE.UTF-8 UTF-8;de_DE ISO-8859-1;de_DE@euro ISO-8859-15"
 export keymap="de-latin1"
 export hostname="archlinux"  # will be set to a user-chosen hostname
+
+
+# Download and run first stage
+
+curl https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/first_stage.sh > /root/first_stage.sh
+bash /root/first_stage.sh
