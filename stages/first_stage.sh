@@ -18,79 +18,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+# Stop at any error to optimize debugging:
+
+set -e
+
+
 echo "Entering first_stage.sh - OK"
-
-
-# Settings
-
-export CONFIG_FILE_PATH="/etc/archinstall/config.json"
-export DEFAULT_PASSWORD="archinstall"
-
-
-# Write config
-
-mkdir $(dirname "$CONFIG_FILE_PATH")
-touch $CONFIG_FILE_PATH
-python -u $REPOSITORY_PATH/util/write_config.py $CONFIG_FILE_PATH
-
-
-# Reading config values to bash
-
-export disk=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "disk")
-export disk_path=/dev/$disk
-export hostname=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "hostname")
-export desktop=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "desktop")
-export admin_username=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "admin_username")
-export system_encryption=$(python -u $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "system_encryption")
-
-
-bash confirm_installation.sh $disk
-
-if [ "$(bash check_bootmode.sh)" == "Booted with UEFI" ];then
-    echo "Booted with UEFI - OK"
-    export boot_mode="UEFI"
-    export efi_partition_path="${disk_path}1"
-    export boot_partition_path="${disk_path}2"
-    export main_partition_path="${disk_path}3"
-elif [ "$(bash check_bootmode.sh)" == "Booted with legacy boot / BIOS" ];then
-    echo "Booted with BIOS - OK"
-    export boot_mode="BIOS"
-    export efi_partition_path="/dev/null"
-    export boot_partition_path="/dev/null"
-    export main_partition_path="${disk_path}1"
-else
-    echo "Unknown boot mode - FAILED"
-    exit
-fi
-
-bash partition_disk.sh $disk_path $boot_mode
-
-if [ $system_encryption == "yes" ];then
-    bash format_crypto_partition.sh $main_partition_path $DEFAULT_PASSWORD
-    bash open_crypto_partition.sh $main_partition_path $DEFAULT_PASSWORD
-    export root_partition_path="/dev/mapper/main"
-else
-    export root_partition_path=$main_partition_path
-fi
-
-bash create_filesystems.sh $efi_partition_path $boot_partition_path $root_partition_path
-
-bash mount_filesystems.sh $boot_partition_path $root_partition_path
-
-bash install_packages.sh $desktop
-
-bash install_archinstall.sh $REPOSITORY_PATH
-
-bash write_fstab.sh
-
-echo "bash second_stage.sh" | arch-chroot /mnt
-
-bash copy_archinstall_log.sh $LOG_FILE_PATH
-
-bash unmount_filesystems.sh $boot_partition_path $root_partition_path
-
-if [ $system_encryption == "yes" ];then
-    bash close_crypto_partition.sh $main_partition_path
-fi
-
-bash print_final_message.sh $DEFAULT_PASSWORD

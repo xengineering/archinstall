@@ -18,21 +18,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+# Stop at any error to optimize debugging:
+
+set -e
+
+
 echo "Entering second_stage.sh - OK"
-
-
-bash configure_keyboard.sh de-latin1
-
-bash configure_locales.sh
-
-bash configure_timezone.sh /usr/share/zoneinfo/Europe/Berlin
-
-bash configure_network.sh $hostname
-
-bash configure_initramfs.sh
-
-bash configure_users.sh $admin_username $DEFAULT_PASSWORD
-
-bash install_bootloader.sh $efi_partition_path $system_encryption $main_partition_path $boot_mode
-
-bash configure_desktop.sh
