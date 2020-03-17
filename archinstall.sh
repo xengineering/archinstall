@@ -54,7 +54,7 @@ EOF
 
 # Constants
 
-export BRANCH="master"  # possible alternatives: "devel" or "feature_<myfeature>"
+export BRANCH="feature_bios"  # possible alternatives: "devel" or "feature_<myfeature>"
 export INTERNET_TEST_SERVER="archlinux.org"
 export INTERNET_TEST_PING_TIMEOUT=1  # in seconds
 export FIRST_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/first_stage.sh"
