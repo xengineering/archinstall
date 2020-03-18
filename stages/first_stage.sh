@@ -23,6 +23,8 @@
 set -e
 
 
+# Debug output
+
 echo "Entering first_stage.sh - OK"
 
 
@@ -84,12 +86,19 @@ n
 p
 1
 
++200M
+n
+p
+2
+
 
 p
 w
 EOF
 
     echo "Partitioned disk for BIOS/MBR - OK"
+else
+    echo "Unknown boot_mode! - FAILED"
 fi
 
 
@@ -97,9 +106,14 @@ fi
 
 if [ "$luks_encryption" == "no" ];then
     if [ "$boot_mode" == "bios" ];then
+        echo "Formatting for no disk encryption and bios/mbr"
         mkfs.ext4 ${path_to_disk}1
-        e2label ${path_to_disk}1 "ROOT"
+        e2label ${path_to_disk}1 "boot"
+        mkfs.ext4 ${path_to_disk}2
+        e2label ${path_to_disk}2 "root"
     elif [ "$boot_mode" == "uefi" ];then
+        echo "Formatting for no disk encryption and uefi/gpt"
+        ###
         echo "Sorry, UEFI is not ready to use ..."
         exit 1
     else
@@ -107,12 +121,16 @@ if [ "$luks_encryption" == "no" ];then
         exit 1
     fi
 elif [ "$luks_encryption" == "yes" ];then
-    echo "Sorry, LUKS encryption is not ready to use ..."
-    exit 1
     if [ "$boot_mode" == "bios" ];then
-        echo "yes/bios"
+        echo "Formatting for disk encryption and bios/mbr"
+        ###
+        echo "Sorry, encryption is not ready to use ..."
+        exit 1
     elif [ "$boot_mode" == "uefi" ];then
-        echo "yes/uefi"
+        echo "Formatting for disk encryption and uefi/gpt"
+        ###
+        echo "Sorry, encryption is not ready to use ..."
+        exit 1
     else
         echo "Unknown boot_mode! - FAILED"
         exit 1

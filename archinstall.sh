@@ -94,3 +94,9 @@ timedatectl set-ntp true
 
 curl $FIRST_STAGE_LINK > /root/first_stage.sh
 bash /root/first_stage.sh
+
+
+# Download and run second stage
+
+#curl $SECOND_STAGE_LINK > /mnt/root/second_stage.sh
+#echo "bash /root/second_stage.sh" | arch-chroot /mnt
