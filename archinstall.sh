@@ -67,7 +67,7 @@ export DEFAULT_PASSWORD="archinstall"
 # Variables
 
 export boot_mode="unknown"  # alternatives: "bios" or "uefi"
-export path_to_disk="/dev/sda"  # e.g. "/dev/sda"  ######################## REMOVE FOR PRODUCTION
+export path_to_disk="/dev/null"  # e.g. "/dev/sda"
 export luks_encryption="no"  # alternative: "yes"
 export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"
 export locales_to_generate="de_DE.UTF-8 UTF-8"  # currently just one option
@@ -94,8 +94,8 @@ timedatectl set-ntp true
 
 # Download and run first stage
 
-#curl $FIRST_STAGE_LINK > /root/first_stage.sh
-#bash /root/first_stage.sh
+curl $FIRST_STAGE_LINK > /root/first_stage.sh
+bash /root/first_stage.sh
 
 
 # Download and run second stage

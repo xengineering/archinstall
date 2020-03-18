@@ -66,4 +66,5 @@ echo "root:${DEFAULT_PASSWORD}" | chpasswd
 # Install bootloader
 
 grub-install --target=i386-pc $path_to_disk
+mkdir /boot/grub
 grub-mkconfig -o /boot/grub/grub.cfg
