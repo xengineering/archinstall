@@ -54,6 +54,7 @@ EOF
 
 # Constants
 
+  ######################## CHANGE FOR PRODUCTION:
 export BRANCH="feature_bios"  # possible alternatives: "devel" or "feature_<myfeature>"
 export INTERNET_TEST_SERVER="archlinux.org"
 export INTERNET_TEST_PING_TIMEOUT=1  # in seconds
@@ -66,7 +67,7 @@ export DEFAULT_PASSWORD="archinstall"
 # Variables
 
 export boot_mode="unknown"  # alternatives: "bios" or "uefi"
-export path_to_disk="/dev/null"  # e.g. "/dev/sda"
+export path_to_disk="/dev/sda"  # e.g. "/dev/sda"  ######################## REMOVE FOR PRODUCTION
 export luks_encryption="no"  # alternative: "yes"
 export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"
 export locales_to_generate="de_DE.UTF-8 UTF-8;de_DE ISO-8859-1;de_DE@euro ISO-8859-15"
@@ -92,11 +93,11 @@ timedatectl set-ntp true
 
 # Download and run first stage
 
-curl $FIRST_STAGE_LINK > /root/first_stage.sh
-bash /root/first_stage.sh
+#curl $FIRST_STAGE_LINK > /root/first_stage.sh
+#bash /root/first_stage.sh
 
 
 # Download and run second stage
 
-#curl $SECOND_STAGE_LINK > /mnt/root/second_stage.sh
-#echo "bash /root/second_stage.sh" | arch-chroot /mnt
+curl $SECOND_STAGE_LINK > /mnt/root/second_stage.sh
+echo "bash /root/second_stage.sh" | arch-chroot /mnt
