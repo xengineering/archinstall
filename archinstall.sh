@@ -55,7 +55,7 @@ EOF
 # Constants
 
   ######################## CHANGE FOR PRODUCTION:
-export BRANCH="feature_bios"  # possible alternatives: "devel" or "feature_<myfeature>"
+export BRANCH="devel"  # possible alternatives: "devel" or "feature_<myfeature>"
 export INTERNET_TEST_SERVER="archlinux.org"
 export INTERNET_TEST_PING_TIMEOUT=1  # in seconds
 export FIRST_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/first_stage.sh"
@@ -98,7 +98,8 @@ curl $FIRST_STAGE_LINK > /root/first_stage.sh
 bash /root/first_stage.sh
 
 
-# Download and run second stage
+# Download, run and delete second stage
 
 curl $SECOND_STAGE_LINK > /mnt/root/second_stage.sh
 echo "bash /root/second_stage.sh" | arch-chroot /mnt
+rm /mnt/root/second_stage.sh
