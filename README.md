@@ -37,9 +37,6 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 (Highest priority first)
 
-- [ ] Support BIOS systems
-- [ ] Optimize mirrorlist
-- [ ] Automatic abort in case of errors
 - [ ] Optimize mirrorlist
 - [ ] Support installation with WiFi (instead of cable connection)
 - [ ] Provide recommended package lists
@@ -52,6 +49,8 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 (Last finished task first)
 
+- [x] Support BIOS systems
+- [x] Automatic abort in case of errors
 - [x] Switch to Cinnamon desktop
 - [x] Provide full system encryption with LUKS
 - [x] Create a main user with sudo permissions

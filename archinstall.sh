@@ -55,12 +55,12 @@ EOF
 # Constants
 
   ######################## CHANGE FOR PRODUCTION:
-export BRANCH="devel"  # possible alternatives: "devel" or "feature_<myfeature>"
+export BRANCH="master"  # possible alternatives: "devel" or "feature_<myfeature>"
 export INTERNET_TEST_SERVER="archlinux.org"
 export INTERNET_TEST_PING_TIMEOUT=1  # in seconds
 export FIRST_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/first_stage.sh"
 export SECOND_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/second_stage.sh"
-export PACKAGE_LIST="base linux linux-firmware nano networkmanager"
+export PACKAGE_LIST="base linux linux-firmware networkmanager nano grub"  # maybe this is requiered: efibootmgr
 export DEFAULT_PASSWORD="archinstall"
 
 

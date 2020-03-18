@@ -146,7 +146,7 @@ fi
 
 # Install packages with pacstrap
 
-pacstrap /mnt base linux linux-firmware networkmanager nano grub  # maybe this is requiered: efibootmgr
+pacstrap /mnt $PACKAGE_LIST
 echo "Installed packages - OK"
 
 
