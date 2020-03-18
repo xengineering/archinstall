@@ -112,6 +112,7 @@ if [ "$luks_encryption" == "no" ];then
         mkfs.ext4 ${path_to_disk}2
         e2label ${path_to_disk}2 "root"
         mount ${path_to_disk}2 /mnt
+        mkdir /mnt/boot
         mount ${path_to_disk}1 /mnt/boot
     elif [ "$boot_mode" == "uefi" ];then
         echo "Formatting for no disk encryption and uefi/gpt"
