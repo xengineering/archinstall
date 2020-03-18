@@ -23,4 +23,22 @@
 set -e
 
 
+# Debug output
+
 echo "Entering second_stage.sh - OK"
+
+
+# Set timezone
+
+ln -sf $path_to_timezone /etc/localtime
+hwclock --systohc
+
+
+# Localization
+
+echo "$locales_to_generate" >> /etc/locale.gen
+locale-gen
+touch /etc/locale.conf
+echo "LANG=$language" >> /etc/locale.conf
+touch /etc/vconsole.conf
+echo "KEYMAP=$keymap" >> /etc/vconsole.conf
