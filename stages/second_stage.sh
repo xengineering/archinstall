@@ -61,3 +61,9 @@ echo "::1       localhost" >> /etc/hosts
 # Setting root password
 
 echo "root:${DEFAULT_PASSWORD}" | chpasswd
+
+
+# Install bootloader
+
+grub-install --target=i386-pc $path_to_disk
+grub-mkconfig -o /boot/grub/grub.cfg
