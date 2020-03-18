@@ -102,7 +102,7 @@ else
 fi
 
 
-# Format partitions
+# Format and mount partitions
 
 if [ "$luks_encryption" == "no" ];then
     if [ "$boot_mode" == "bios" ];then
@@ -111,6 +111,8 @@ if [ "$luks_encryption" == "no" ];then
         e2label ${path_to_disk}1 "boot"
         mkfs.ext4 ${path_to_disk}2
         e2label ${path_to_disk}2 "root"
+        mount ${path_to_disk}2 /mnt
+        mount ${path_to_disk}1 /mnt/boot
     elif [ "$boot_mode" == "uefi" ];then
         echo "Formatting for no disk encryption and uefi/gpt"
         ###
@@ -139,3 +141,14 @@ else
     echo "luks_encryption not 'yes' or 'no'! - FAILED"
     exit 1
 fi
+
+
+# Install packages with pacstrap
+
+pacstrap /mnt base linux linux-firmware networkmanager nano grub  # maybe this is requiered: efibootmgr
+echo "Installed packages - OK"
+
+
+# Generate /etc/fstab
+
+genfstab -U /mnt >> /mnt/etc/fstab
