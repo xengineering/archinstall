@@ -42,3 +42,22 @@ touch /etc/locale.conf
 echo "LANG=$language" >> /etc/locale.conf
 touch /etc/vconsole.conf
 echo "KEYMAP=$keymap" >> /etc/vconsole.conf
+
+
+# Network configuration
+
+touch /etc/hostname
+echo "$hostname" > /etc/hostname
+touch /etc/hosts
+echo "127.0.0.1    localhost" >> /etc/hosts
+echo "::1       localhost" >> /etc/hosts
+
+
+# Initramfs
+
+### to be implemented
+
+
+# Setting root password
+
+echo "root:${DEFAULT_PASSWORD}" | chpasswd
