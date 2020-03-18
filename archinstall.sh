@@ -28,20 +28,9 @@
 #################################################################
 
 
-# Settings
+# Stop at any error to optimize debugging:
 
-export TESTSERVER="archlinux.org"  # IP or hostname
-export NETWORK_DEADLINE=1  # in seconds
-export REPOSITORY_URL="https://github.com/xengineering/archinstall/"  # remote
-export REPOSITORY_PATH="/opt/archinstall"  # local
-export BRANCH_OR_COMMIT="master"  # select another branch or commit hash for checkout if needed
-export LOG_FILE_PATH="/var/log/archinstall.log"
-
-
-# PATH expansion
-
-export PATH=$PATH:$REPOSITORY_PATH/stages
-export PATH=$PATH:$REPOSITORY_PATH/util
+set -e
 
 
 # Greetings
@@ -63,13 +52,37 @@ cat << EOF
 EOF
 
 
+# Constants
+
+  ######################## CHANGE FOR PRODUCTION:
+export BRANCH="devel"  # possible alternatives: "devel" or "feature_<myfeature>"
+export INTERNET_TEST_SERVER="archlinux.org"
+export INTERNET_TEST_PING_TIMEOUT=1  # in seconds
+export FIRST_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/first_stage.sh"
+export SECOND_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/second_stage.sh"
+export PACKAGE_LIST="base linux linux-firmware nano networkmanager"
+export DEFAULT_PASSWORD="archinstall"
+
+
+# Variables
+
+export boot_mode="unknown"  # alternatives: "bios" or "uefi"
+export path_to_disk="/dev/null"  # e.g. "/dev/sda"
+export luks_encryption="no"  # alternative: "yes"
+export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"
+export locales_to_generate="de_DE.UTF-8 UTF-8"  # currently just one option
+export language="de_DE.UTF-8"
+export keymap="de-latin1"
+export hostname="archlinux"  # will be set to a user-chosen hostname
+
+
 # Check internet connection
 
-if ping -w $NETWORK_DEADLINE -c 1 $TESTSERVER; then
+if ping -w $INTERNET_TEST_PING_TIMEOUT -c 1 $INTERNET_TEST_SERVER; then
     echo "Internet connection is ready - OK"
     echo ""
 else
-    echo "Could not reach testserver '$TESTSERVER' - FAILED"
+    echo "Could not reach INTERNET_TEST_SERVER '$INTERNET_TEST_SERVER' - FAILED"
     exit
 fi
 
@@ -77,31 +90,16 @@ fi
 # Update the system clock
 
 timedatectl set-ntp true
-if [ $? -eq 0 ]; then
-    echo "Updated system clock - OK"
-    echo ""
-else
-    echo "Could not update system clock - FAILED"
-    exit
-fi
 
 
-# Cloning Git repository
+# Download and run first stage
 
-echo "Cloning git repository ..."
-echo ""
-
-pacman --noconfirm -Sy git
-mkdir $REPOSITORY_PATH
-git clone $REPOSITORY_URL $REPOSITORY_PATH
-cd $REPOSITORY_PATH
-git checkout $BRANCH_OR_COMMIT
-cd
-
-echo "Git repository cloned - OK"
-echo ""
+curl $FIRST_STAGE_LINK > /root/first_stage.sh
+bash /root/first_stage.sh
 
 
-# Launching first stage
+# Download, run and delete second stage
 
-bash first_stage.sh | tee -a $LOG_FILE_PATH
+curl $SECOND_STAGE_LINK > /mnt/root/second_stage.sh
+echo "bash /root/second_stage.sh" | arch-chroot /mnt
+rm /mnt/root/second_stage.sh

@@ -18,25 +18,52 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+# Stop at any error to optimize debugging:
+
+set -e
+
+
+# Debug output
+
 echo "Entering second_stage.sh - OK"
 
 
-bash configure_keyboard.sh de-latin1
+# Set timezone
 
-bash configure_locales.sh
+ln -sf $path_to_timezone /etc/localtime
+hwclock --systohc
 
-bash configure_timezone.sh /usr/share/zoneinfo/Europe/Berlin
 
-bash configure_network.sh $hostname
+# Localization
 
-if [ $system_encryption == "yes" ]; then
-    bash configure_initramfs.sh
-fi
+echo "$locales_to_generate" >> /etc/locale.gen
+locale-gen
+touch /etc/locale.conf
+echo "LANG=$language" >> /etc/locale.conf
+touch /etc/vconsole.conf
+echo "KEYMAP=$keymap" >> /etc/vconsole.conf
 
-bash configure_users.sh $admin_username $DEFAULT_PASSWORD
 
-bash install_bootloader.sh $efi_partition_path $system_encryption $main_partition_path
+# Network configuration
 
-if [ "$desktop" = "yes" ]; then
-    bash configure_desktop.sh $desktop
-fi
+touch /etc/hostname
+echo "$hostname" > /etc/hostname
+touch /etc/hosts
+echo "127.0.0.1    localhost" >> /etc/hosts
+echo "::1       localhost" >> /etc/hosts
+
+
+# Initramfs
+
+### to be implemented
+
+
+# Setting root password
+
+echo "root:${DEFAULT_PASSWORD}" | chpasswd
+
+
+# Install bootloader
+
+grub-install --target=i386-pc $path_to_disk
+grub-mkconfig -o /boot/grub/grub.cfg

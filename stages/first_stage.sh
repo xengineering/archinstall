@@ -18,75 +18,138 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+# Stop at any error to optimize debugging:
+
+set -e
+
+
+# Debug output
+
 echo "Entering first_stage.sh - OK"
 
 
-# Settings
+# Check bootmode
 
-export CONFIG_FILE_PATH="/etc/archinstall/config.json"
-export DEFAULT_PASSWORD="archinstall"
-
-
-# Write config
-
-mkdir $(dirname "$CONFIG_FILE_PATH")
-touch $CONFIG_FILE_PATH
-python $REPOSITORY_PATH/util/write_config.py $CONFIG_FILE_PATH
-
-
-# Reading config values to bash
-
-export disk=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "disk")
-export disk_path=/dev/$disk
-export efi_partition_path="${disk_path}1"
-export boot_partition_path="${disk_path}2"
-export main_partition_path="${disk_path}3"
-export hostname=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "hostname")
-export desktop=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "desktop")
-export admin_username=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "admin_username")
-export system_encryption=$(python $REPOSITORY_PATH/util/read_config_string.py $CONFIG_FILE_PATH "system_encryption")
-
-
-bash confirm_installation.sh $disk
-
-bash check_bootmode.sh
-
-bash partition_disk.sh $disk_path
-
-if [ $system_encryption == "yes" ];then
-
-    bash format_crypto_partition.sh $main_partition_path $DEFAULT_PASSWORD
-
-    bash open_crypto_partition.sh $main_partition_path $DEFAULT_PASSWORD
-
-    export root_partition_path="/dev/mapper/main"
-
+if [ -d "/sys/firmware/efi/efivars" ]; then
+    export boot_mode="uefi"
+    echo "Booted with UEFI"
 else
-
-    export root_partition_path=$main_partition_path
-
+    export boot_mode="bios"
+    echo "Booted with legacy boot / BIOS"
 fi
 
-bash create_filesystems.sh $efi_partition_path $boot_partition_path $root_partition_path
 
-bash mount_filesystems.sh $boot_partition_path $root_partition_path
+# Partition the disk
 
-bash install_packages.sh $desktop
-
-bash install_archinstall.sh $REPOSITORY_PATH
-
-bash write_fstab.sh
-
-echo "bash second_stage.sh" | arch-chroot /mnt
-
-bash copy_archinstall_log.sh $LOG_FILE_PATH
-
-bash unmount_filesystems.sh $boot_partition_path $root_partition_path
-
-if [ $system_encryption == "yes" ];then
-
-    bash close_crypto_partition.sh $main_partition_path
-
+if [ "$boot_mode" == "unknown" ]; then
+    echo "boot_mode unknown! - FAILED"
+    exit 1
 fi
 
-bash print_final_message.sh $DEFAULT_PASSWORD
+if [ "$path_to_disk" == "/dev/null" ]; then
+    echo "path_to_disk has still default value! - FAILED"
+    exit 1
+fi
+
+if [ "$boot_mode" == "uefi" ]; then
+    echo "Partitioning for UEFI mode."
+    echo "Sorry, this is still untested and you should not try it ..."
+    exit 1
+    wipefs -a $path_to_disk  # make sure that fdisk does not ask for removing
+                             # signatures which breaks the script
+    fdisk $path_to_disk << EOF
+g
+n
+1
+
++512M
+n
+2
+
++200M
+n
+3
+
+
+p
+w
+EOF
+
+    echo "Partitioned disk for UEFI/GPT- OK"
+elif [ "$boot_mode" == "bios" ]; then
+    echo "Partitioning for BIOS mode."
+    wipefs -a $path_to_disk  # make sure that fdisk does not ask for removing
+                             # signatures which breaks the script
+    fdisk $path_to_disk << EOF
+o
+n
+p
+1
+
++200M
+n
+p
+2
+
+
+p
+w
+EOF
+
+    echo "Partitioned disk for BIOS/MBR - OK"
+else
+    echo "Unknown boot_mode! - FAILED"
+fi
+
+
+# Format and mount partitions
+
+if [ "$luks_encryption" == "no" ];then
+    if [ "$boot_mode" == "bios" ];then
+        echo "Formatting for no disk encryption and bios/mbr"
+        mkfs.ext4 ${path_to_disk}1
+        e2label ${path_to_disk}1 "boot"
+        mkfs.ext4 ${path_to_disk}2
+        e2label ${path_to_disk}2 "root"
+        mount ${path_to_disk}2 /mnt
+        mkdir /mnt/boot
+        mount ${path_to_disk}1 /mnt/boot
+    elif [ "$boot_mode" == "uefi" ];then
+        echo "Formatting for no disk encryption and uefi/gpt"
+        ###
+        echo "Sorry, UEFI is not ready to use ..."
+        exit 1
+    else
+        echo "Unknown boot_mode! - FAILED"
+        exit 1
+    fi
+elif [ "$luks_encryption" == "yes" ];then
+    if [ "$boot_mode" == "bios" ];then
+        echo "Formatting for disk encryption and bios/mbr"
+        ###
+        echo "Sorry, encryption is not ready to use ..."
+        exit 1
+    elif [ "$boot_mode" == "uefi" ];then
+        echo "Formatting for disk encryption and uefi/gpt"
+        ###
+        echo "Sorry, encryption is not ready to use ..."
+        exit 1
+    else
+        echo "Unknown boot_mode! - FAILED"
+        exit 1
+    fi
+else
+    echo "luks_encryption not 'yes' or 'no'! - FAILED"
+    exit 1
+fi
+
+
+# Install packages with pacstrap
+
+pacstrap /mnt base linux linux-firmware networkmanager nano grub  # maybe this is requiered: efibootmgr
+echo "Installed packages - OK"
+
+
+# Generate /etc/fstab
+
+genfstab -U /mnt >> /mnt/etc/fstab
