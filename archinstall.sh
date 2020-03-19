@@ -60,8 +60,10 @@ export INTERNET_TEST_SERVER="archlinux.org"
 export INTERNET_TEST_PING_TIMEOUT=1  # in seconds
 export FIRST_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/first_stage.sh"
 export SECOND_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/second_stage.sh"
-export PACKAGE_LIST="base linux linux-firmware networkmanager nano grub"  # maybe this is requiered: efibootmgr
+export PACKAGE_LIST="base linux linux-firmware grub networkmanager nano"  # maybe this is requiered: efibootmgr
 export DEFAULT_PASSWORD="archinstall"
+export OK="\033[m[ \033[32mOK\033[m ]"
+export ERROR="\033[m[ \033[32mERROR\033[m ]"
 
 
 # Variables
@@ -79,12 +81,16 @@ export hostname="archlinux"  # will be set to a user-chosen hostname
 # Check internet connection
 
 if ping -w $INTERNET_TEST_PING_TIMEOUT -c 1 $INTERNET_TEST_SERVER; then
-    echo "Internet connection is ready - OK"
+    printf "$OK Internet connection is ready\n"
+    printf "$ERROR An error would look like this\n"
     echo ""
 else
     echo "Could not reach INTERNET_TEST_SERVER '$INTERNET_TEST_SERVER' - FAILED"
     exit
 fi
+
+
+exit 99
 
 
 # Update the system clock
