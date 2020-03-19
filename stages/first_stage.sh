@@ -47,9 +47,7 @@ if [ "$path_to_disk" == "/dev/null" ]; then
 fi
 
 if [ "$boot_mode" == "uefi" ]; then
-    printf "$OK Partitioning for UEFI mode\n"
-    printf "$FAILED Sorry, this is still untested and you should not try it ...\n"
-    exit 1
+    printf "$OK Partitioning for UEFI mode ...\n"
     wipefs -a $path_to_disk  # make sure that fdisk does not ask for removing
                              # signatures which breaks the script
     fdisk $path_to_disk << EOF
@@ -69,10 +67,10 @@ n
 p
 w
 EOF
-
     printf "$OK Partitioned disk for UEFI/GPT\n"
+
 elif [ "$boot_mode" == "bios" ]; then
-    printf "$OK Partitioning for BIOS mode\n"
+    printf "$OK Partitioning for BIOS mode ...\n"
     wipefs -a $path_to_disk  # make sure that fdisk does not ask for removing
                              # signatures which breaks the script
     fdisk $path_to_disk << EOF
@@ -90,8 +88,8 @@ p
 p
 w
 EOF
-
     printf "$OK Partitioned disk for BIOS/MBR\n"
+
 else
     printf "$FAILED Unknown boot_mode\n"
 fi
@@ -111,9 +109,17 @@ if [ "$luks_encryption" == "no" ];then
         mount ${path_to_disk}1 /mnt/boot
     elif [ "$boot_mode" == "uefi" ];then
         printf "$OK Formatting for no disk encryption and uefi/gpt\n"
-        ###
-        printf "$FAILED Sorry, UEFI is not ready to use ...\n"
-        exit 1
+        mkfs.fat -F32 ${path_to_disk}1
+        fatlabel ${path_to_disk}1 "efi"
+        mkfs.ext4 ${path_to_disk}2
+        e2label ${path_to_disk}2 "boot"
+        mkfs.ext4 ${path_to_disk}3
+        e2label ${path_to_disk}3 "root"
+        mount ${path_to_disk}3 /mnt
+        mkdir /mnt/mnt
+        mount ${path_to_disk}1 /mnt/mnt
+        mkdir /mnt/boot
+        mount ${path_to_disk}2 /mnt/boot
     else
         printf "$FAILED Unknown boot_mode\n"
         exit 1
