@@ -25,7 +25,7 @@ set -e
 
 # Debug output
 
-echo "Entering second_stage.sh - OK"
+printf "$OK Entering second_stage.sh\n"
 
 
 # Set timezone

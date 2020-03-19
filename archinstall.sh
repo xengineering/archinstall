@@ -62,8 +62,8 @@ export FIRST_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinst
 export SECOND_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/second_stage.sh"
 export PACKAGE_LIST="base linux linux-firmware grub networkmanager nano"  # maybe this is requiered: efibootmgr
 export DEFAULT_PASSWORD="archinstall"
-export OK="\033[m[ \033[32mOK\033[m ]"
-export ERROR="\033[m[ \033[32mERROR\033[m ]"
+export OK="\033[m[  \033[32mOK\033[m   ]"
+export ERROR="\033[m[ \033[31mERROR\033[m ]"
 
 
 # Variables
@@ -82,26 +82,23 @@ export hostname="archlinux"  # will be set to a user-chosen hostname
 
 if ping -w $INTERNET_TEST_PING_TIMEOUT -c 1 $INTERNET_TEST_SERVER; then
     printf "$OK Internet connection is ready\n"
-    printf "$ERROR An error would look like this\n"
-    echo ""
 else
-    echo "Could not reach INTERNET_TEST_SERVER '$INTERNET_TEST_SERVER' - FAILED"
-    exit
+    printf "$ERROR Could not reach INTERNET_TEST_SERVER '$INTERNET_TEST_SERVER'\n"
+    exit 1
 fi
-
-
-exit 99
 
 
 # Update the system clock
 
 timedatectl set-ntp true
+printf "$OK Updated system clock\n"
 
 
 # Download and run first stage
 
 curl $FIRST_STAGE_LINK > /root/first_stage.sh
 bash /root/first_stage.sh
+printf "$OK first_stage.sh finished\n"
 
 
 # Download, run and delete second stage
@@ -109,3 +106,4 @@ bash /root/first_stage.sh
 curl $SECOND_STAGE_LINK > /mnt/root/second_stage.sh
 echo "bash /root/second_stage.sh" | arch-chroot /mnt
 rm /mnt/root/second_stage.sh
+printf "$OK second_stage.sh finished\n"

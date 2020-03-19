@@ -49,6 +49,7 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 (Last finished task first)
 
+- [x] Support coloured output
 - [x] Support BIOS systems
 - [x] Automatic abort in case of errors
 - [x] Switch to Cinnamon desktop
