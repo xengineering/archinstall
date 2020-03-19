@@ -18,23 +18,23 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-# Stop at any error to optimize debugging:
+# stop at any error to optimize debugging:
 
 set -e
 
 
-# Debug output
+# debug output
 
 printf "$OK Entering second_stage.sh\n"
 
 
-# Set timezone
+# set timezone
 
 ln -sf $path_to_timezone /etc/localtime
 hwclock --systohc
 
 
-# Localization
+# localization
 
 echo "$locales_to_generate" >> /etc/locale.gen
 locale-gen
@@ -44,7 +44,7 @@ touch /etc/vconsole.conf
 echo "KEYMAP=$keymap" >> /etc/vconsole.conf
 
 
-# Network configuration
+# network configuration
 
 touch /etc/hostname
 echo "$hostname" > /etc/hostname
@@ -53,17 +53,17 @@ echo "127.0.0.1    localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
 
 
-# Initramfs
+# initramfs
 
 ### to be implemented
 
 
-# Setting root password
+# setting root password
 
 echo "root:${DEFAULT_PASSWORD}" | chpasswd
 
 
-# Install bootloader
+# install bootloader
 
 grub-install --target=i386-pc $path_to_disk
 grub-mkconfig -o /boot/grub/grub.cfg

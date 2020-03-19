@@ -28,12 +28,12 @@
 #################################################################
 
 
-# Stop at any error to optimize debugging:
+# stop at any error to optimize debugging:
 
 set -e
 
 
-# Greetings
+# greetings
 
 cat << EOF
 
@@ -52,24 +52,24 @@ cat << EOF
 EOF
 
 
-# Constants
+# constants
 
   ######################## CHANGE FOR PRODUCTION:
-export BRANCH="master"  # possible alternatives: "devel" or "feature_<myfeature>"
+export BRANCH="devel"  # possible alternatives: "devel" or "feature_<myfeature>"
 export INTERNET_TEST_SERVER="archlinux.org"
 export INTERNET_TEST_PING_TIMEOUT=1  # in seconds
 export FIRST_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/first_stage.sh"
 export SECOND_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/second_stage.sh"
 export PACKAGE_LIST="base linux linux-firmware grub networkmanager nano"  # maybe this is requiered: efibootmgr
 export DEFAULT_PASSWORD="archinstall"
-export OK="\033[m[  \033[32mOK\033[m   ]"
-export ERROR="\033[m[ \033[31mERROR\033[m ]"
+export OK="\033[m[   \033[32mOK\033[m   ]"  # ref. https://en.wikipedia.org/wiki/ANSI_escape_code
+export FAILED="\033[m[ \033[31mFAILED\033[m ]"  # ref. https://en.wikipedia.org/wiki/ANSI_escape_code
 
 
-# Variables
+# variables
 
 export boot_mode="unknown"  # alternatives: "bios" or "uefi"
-export path_to_disk="/dev/null"  # e.g. "/dev/sda"
+export path_to_disk="/dev/sda"  # e.g. "/dev/sda"
 export luks_encryption="no"  # alternative: "yes"
 export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"
 export locales_to_generate="de_DE.UTF-8 UTF-8"  # currently just one option
@@ -78,30 +78,30 @@ export keymap="de-latin1"
 export hostname="archlinux"  # will be set to a user-chosen hostname
 
 
-# Check internet connection
+# check internet connection
 
 if ping -w $INTERNET_TEST_PING_TIMEOUT -c 1 $INTERNET_TEST_SERVER; then
     printf "$OK Internet connection is ready\n"
 else
-    printf "$ERROR Could not reach INTERNET_TEST_SERVER '$INTERNET_TEST_SERVER'\n"
+    printf "$FAILED Could not reach INTERNET_TEST_SERVER '$INTERNET_TEST_SERVER'\n"
     exit 1
 fi
 
 
-# Update the system clock
+# update the system clock
 
 timedatectl set-ntp true
 printf "$OK Updated system clock\n"
 
 
-# Download and run first stage
+# download and run first stage
 
 curl $FIRST_STAGE_LINK > /root/first_stage.sh
 bash /root/first_stage.sh
 printf "$OK first_stage.sh finished\n"
 
 
-# Download, run and delete second stage
+# download, run and delete second stage
 
 curl $SECOND_STAGE_LINK > /mnt/root/second_stage.sh
 echo "bash /root/second_stage.sh" | arch-chroot /mnt
