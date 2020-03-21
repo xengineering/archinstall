@@ -52,7 +52,9 @@ cat << EOF
 EOF
 
 
-# settings
+##############################################################################
+
+#                                settings                                    #
 
 # Modify each entry to your needs. Leave every unknown entry as it is.
 # But make sure to EDIT 'path_to_disk'! Run "lsblk" if you are unsure, which
@@ -66,6 +68,8 @@ export language="de_DE.UTF-8"
 export keymap="de-latin1"
 export hostname="archlinux"  # will be set to a user-chosen hostname
 
+##############################################################################
+
 
 # constants
 
@@ -76,8 +80,6 @@ export FIRST_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinst
 export SECOND_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/second_stage.sh"
 export PACKAGE_LIST="base linux linux-firmware grub networkmanager nano"  # maybe this is requiered: efibootmgr
 export DEFAULT_PASSWORD="archinstall"
-export OK="\033[m[   \033[32mOK\033[m   ]"  # ref. https://en.wikipedia.org/wiki/ANSI_escape_code
-export FAILED="\033[m[ \033[31mFAILED\033[m ]"  # ref. https://en.wikipedia.org/wiki/ANSI_escape_code
 
 
 # variables
@@ -88,11 +90,13 @@ export boot_mode="unknown"  # alternatives: "bios" or "uefi"
 # functions
 
 function print_ok () {
+    # ref. https://en.wikipedia.org/wiki/ANSI_escape_code
     printf "\033[m[ \033[32mOK\033[m ] $1\n"
 }
 export -f print_ok
 
 function print_failed () {
+    # ref. https://en.wikipedia.org/wiki/ANSI_escape_code
     printf "\033[m[ \033[31mFAILED\033[m ] $1\n"
 }
 export -f print_failed
@@ -101,9 +105,9 @@ export -f print_failed
 # check internet connection
 
 if ping -w $INTERNET_TEST_PING_TIMEOUT -c 1 $INTERNET_TEST_SERVER; then
-    printf "$OK Internet connection is ready\n"
+    print_ok "Internet connection is ready"
 else
-    printf "$FAILED Could not reach INTERNET_TEST_SERVER '$INTERNET_TEST_SERVER'\n"
+    print_failed "Could not reach INTERNET_TEST_SERVER '$INTERNET_TEST_SERVER'"
     exit 1
 fi
 
@@ -111,14 +115,14 @@ fi
 # update the system clock
 
 timedatectl set-ntp true
-printf "$OK Updated system clock\n"
+print_ok "Updated system clock"
 
 
 # download and run first stage
 
 curl $FIRST_STAGE_LINK > /root/first_stage.sh
 bash /root/first_stage.sh
-printf "$OK first_stage.sh finished\n"
+print_ok "first_stage.sh finished"
 
 
 # download, run and delete second stage
@@ -126,4 +130,4 @@ printf "$OK first_stage.sh finished\n"
 curl $SECOND_STAGE_LINK > /mnt/root/second_stage.sh
 echo "bash /root/second_stage.sh" | arch-chroot /mnt
 rm /mnt/root/second_stage.sh
-printf "$OK second_stage.sh finished\n"
+print_ok "second_stage.sh finished"

@@ -26,30 +26,28 @@ set -e
 # debug output
 
 print_ok "Entering first_stage.sh"
-print_failed "Testing printing functions ..."
-exit 99
 
 
 # check bootmode
 
 if [ -d "/sys/firmware/efi/efivars" ]; then
     export boot_mode="uefi"
-    printf "$OK Booted with UEFI\n"
+    print_ok "Booted with UEFI"
 else
     export boot_mode="bios"
-    printf "$OK Booted with legacy boot / BIOS\n"
+    print_ok "Booted with legacy boot / BIOS"
 fi
 
 
 # partition the disk
 
 if [ "$path_to_disk" == "/dev/null" ]; then
-    printf "$FAILED path_to_disk variable has still default value '/dev/null'\n"
+    print_failed "path_to_disk variable has still default value '/dev/null'"
     exit 1
 fi
 
 if [ "$boot_mode" == "uefi" ]; then
-    printf "$OK Partitioning for UEFI mode ...\n"
+    print_ok "Partitioning for UEFI mode ..."
     wipefs -a $path_to_disk  # make sure that fdisk does not ask for removing
                              # signatures which breaks the script
     fdisk $path_to_disk << EOF
@@ -69,10 +67,10 @@ n
 p
 w
 EOF
-    printf "$OK Partitioned disk for UEFI/GPT\n"
+    print_ok "Partitioned disk for UEFI/GPT"
 
 elif [ "$boot_mode" == "bios" ]; then
-    printf "$OK Partitioning for BIOS mode ...\n"
+    print_ok "Partitioning for BIOS mode ..."
     wipefs -a $path_to_disk  # make sure that fdisk does not ask for removing
                              # signatures which breaks the script
     fdisk $path_to_disk << EOF
@@ -90,10 +88,10 @@ p
 p
 w
 EOF
-    printf "$OK Partitioned disk for BIOS/MBR\n"
+    print_ok "Partitioned disk for BIOS/MBR"
 
 else
-    printf "$FAILED Unknown boot_mode\n"
+    print_failed "Unknown boot_mode"
 fi
 
 
@@ -101,7 +99,7 @@ fi
 
 if [ "$luks_encryption" == "no" ];then
     if [ "$boot_mode" == "bios" ];then
-        printf "$OK Formatting for no disk encryption and bios/mbr\n"
+        print_ok "Formatting for no disk encryption and bios/mbr"
         mkfs.ext4 ${path_to_disk}1
         e2label ${path_to_disk}1 "boot"
         mkfs.ext4 ${path_to_disk}2
@@ -110,7 +108,7 @@ if [ "$luks_encryption" == "no" ];then
         mkdir /mnt/boot
         mount ${path_to_disk}1 /mnt/boot
     elif [ "$boot_mode" == "uefi" ];then
-        printf "$OK Formatting for no disk encryption and uefi/gpt\n"
+        print_ok "Formatting for no disk encryption and uefi/gpt"
         mkfs.fat -F32 ${path_to_disk}1
         fatlabel ${path_to_disk}1 "efi"
         mkfs.ext4 ${path_to_disk}2
@@ -123,26 +121,26 @@ if [ "$luks_encryption" == "no" ];then
         mkdir /mnt/boot
         mount ${path_to_disk}2 /mnt/boot
     else
-        printf "$FAILED Unknown boot_mode\n"
+        print_failed "Unknown boot_mode"
         exit 1
     fi
 elif [ "$luks_encryption" == "yes" ];then
     if [ "$boot_mode" == "bios" ];then
-        printf "$OK Formatting for disk encryption and bios/mbr\n"
+        print_ok "Formatting for disk encryption and bios/mbr"
         ###
-        printf "$FAILED Sorry, encryption is not ready to use ...\n"
+        print_failed "Sorry, encryption is not ready to use ..."
         exit 1
     elif [ "$boot_mode" == "uefi" ];then
-        printf "$OK Formatting for disk encryption and uefi/gpt\n"
+        print_ok "Formatting for disk encryption and uefi/gpt"
         ###
-        printf "$FAILED Sorry, encryption is not ready to use ...\n"
+        print_failed "Sorry, encryption is not ready to use ..."
         exit 1
     else
-        printf "$FAILED Unknown boot_mode\n"
+        print_failed "Unknown boot_mode"
         exit 1
     fi
 else
-    printf "$FAILED luks_encryption not 'yes' or 'no'\n"
+    print_failed "luks_encryption not 'yes' or 'no'"
     exit 1
 fi
 
@@ -150,7 +148,7 @@ fi
 # install packages with pacstrap
 
 pacstrap /mnt $PACKAGE_LIST
-printf "$OK Installed packages\n"
+print_ok "Installed packages"
 
 
 # generate /etc/fstab
