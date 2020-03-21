@@ -62,6 +62,7 @@ EOF
 
 export path_to_disk="/dev/sda"  # select the disk for installation like "/dev/sda"
 export hostname="archlinux"  # select the hostname for your installation
+export pacman_mirror_region="DE"  # select "all" for all regions
 export luks_encryption="no"  # "yes" for full disk encryption, "no" for normal installation
 export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"  # choose your timezone
 export locales_to_generate="de_DE.UTF-8 UTF-8"  # currently just one option

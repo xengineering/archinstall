@@ -184,6 +184,12 @@ fi
 print_ok "Formatting done"
 
 
+# optimize mirrorlist
+
+print_ok "Optimize pacman mirrorlist ..."
+curl "https://www.archlinux.org/mirrorlist/?country=$pacman_mirror_region&protocol=http&protocol=https&ip_version=4" > /etc/pacman.d/mirrorlist
+sed -i '/#Server = *./s/^#//g' /etc/pacman.d/mirrorlist
+
 # install packages with pacstrap
 
 pacstrap /mnt $PACKAGE_LIST
