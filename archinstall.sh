@@ -52,9 +52,23 @@ cat << EOF
 EOF
 
 
+# settings
+
+# Modify each entry to your needs. Leave every unknown entry as it is.
+# But make sure to EDIT 'path_to_disk'! Run "lsblk" if you are unsure, which
+# is the right one for your machine.
+
+export path_to_disk="/dev/sda"  # e.g. "/dev/sda"
+export luks_encryption="no"  # alternative: "yes"
+export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"
+export locales_to_generate="de_DE.UTF-8 UTF-8"  # currently just one option
+export language="de_DE.UTF-8"
+export keymap="de-latin1"
+export hostname="archlinux"  # will be set to a user-chosen hostname
+
+
 # constants
 
-  ######################## CHANGE FOR PRODUCTION:
 export BRANCH="devel"  # possible alternatives: "devel" or "feature_<myfeature>"
 export INTERNET_TEST_SERVER="archlinux.org"
 export INTERNET_TEST_PING_TIMEOUT=1  # in seconds
@@ -69,13 +83,17 @@ export FAILED="\033[m[ \033[31mFAILED\033[m ]"  # ref. https://en.wikipedia.org/
 # variables
 
 export boot_mode="unknown"  # alternatives: "bios" or "uefi"
-export path_to_disk="/dev/sda"  # e.g. "/dev/sda"
-export luks_encryption="no"  # alternative: "yes"
-export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"
-export locales_to_generate="de_DE.UTF-8 UTF-8"  # currently just one option
-export language="de_DE.UTF-8"
-export keymap="de-latin1"
-export hostname="archlinux"  # will be set to a user-chosen hostname
+
+
+# functions
+
+print_ok () {
+    printf "\033[m[ \033[32mOK\033[m ] $1\n"
+}
+
+print_failed () {
+    printf "\033[m[ \033[31mFAILED\033[m ] $1\n"
+}
 
 
 # check internet connection

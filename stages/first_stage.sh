@@ -25,7 +25,9 @@ set -e
 
 # debug output
 
-printf "$OK Entering first_stage.sh\n"
+print_ok "Entering first_stage.sh"
+print_failed "Testing printing functions ..."
+exit 99
 
 
 # check bootmode
