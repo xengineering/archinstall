@@ -41,7 +41,7 @@ fi
 
 # partition the disk
 
-if [ "$path_to_disk" == "/dev/null" ]; then
+if [ "$path_to_disk" == "/dev/null" ]; then  # check if a disk is selected
     print_failed "path_to_disk variable has still default value '/dev/null'"
     exit 1
 fi
@@ -92,53 +92,76 @@ EOF
 
 else
     print_failed "Unknown boot_mode"
+    exit 1
 fi
 
 
 # format and mount partitions
 
 if [ "$luks_encryption" == "no" ];then
+
     if [ "$boot_mode" == "bios" ];then
+
         print_ok "Formatting for no disk encryption and bios/mbr"
-        mkfs.ext4 ${path_to_disk}1
-        e2label ${path_to_disk}1 "boot"
+
+        # root partition
         mkfs.ext4 ${path_to_disk}2
         e2label ${path_to_disk}2 "root"
         mount ${path_to_disk}2 /mnt
+
+        # boot partition
+        mkfs.ext4 ${path_to_disk}1
+        e2label ${path_to_disk}1 "boot"
         mkdir /mnt/boot
         mount ${path_to_disk}1 /mnt/boot
+
     elif [ "$boot_mode" == "uefi" ];then
+
         print_ok "Formatting for no disk encryption and uefi/gpt"
-        mkfs.fat -F32 ${path_to_disk}1
-        fatlabel ${path_to_disk}1 "efi"
-        mkfs.ext4 ${path_to_disk}2
-        e2label ${path_to_disk}2 "boot"
+
+        # root partition
         mkfs.ext4 ${path_to_disk}3
         e2label ${path_to_disk}3 "root"
         mount ${path_to_disk}3 /mnt
-        mkdir /mnt/mnt
-        mount ${path_to_disk}1 /mnt/mnt
+
+        # boot partition
+        mkfs.ext4 ${path_to_disk}2
+        e2label ${path_to_disk}2 "boot"
         mkdir /mnt/boot
         mount ${path_to_disk}2 /mnt/boot
+
+        # efi partition
+        mkfs.fat -F32 ${path_to_disk}1
+        fatlabel ${path_to_disk}1 "efi"
+        mkdir /mnt/mnt
+        mount ${path_to_disk}1 /mnt/mnt
+
     else
         print_failed "Unknown boot_mode"
         exit 1
     fi
+
 elif [ "$luks_encryption" == "yes" ];then
+
     if [ "$boot_mode" == "bios" ];then
+
         print_ok "Formatting for disk encryption and bios/mbr"
-        ###
+
         print_failed "Sorry, encryption is not ready to use ..."
-        exit 1
+        exit 1  ###
+
     elif [ "$boot_mode" == "uefi" ];then
+
         print_ok "Formatting for disk encryption and uefi/gpt"
-        ###
+
         print_failed "Sorry, encryption is not ready to use ..."
-        exit 1
+        exit 1  ###
+
     else
         print_failed "Unknown boot_mode"
         exit 1
     fi
+
 else
     print_failed "luks_encryption not 'yes' or 'no'"
     exit 1

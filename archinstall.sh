@@ -60,13 +60,13 @@ EOF
 # But make sure to EDIT 'path_to_disk'! Run "lsblk" if you are unsure, which
 # is the right one for your machine.
 
-export path_to_disk="/dev/sda"  # e.g. "/dev/sda"
-export luks_encryption="no"  # alternative: "yes"
-export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"
+export path_to_disk="/dev/sda"  # select the disk for installation like "/dev/sda"
+export hostname="archlinux"  # select the hostname for your installation
+export luks_encryption="no"  # "yes" for full disk encryption, "no" for normal installation
+export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"  # choose your timezone
 export locales_to_generate="de_DE.UTF-8 UTF-8"  # currently just one option
 export language="de_DE.UTF-8"
-export keymap="de-latin1"
-export hostname="archlinux"  # will be set to a user-chosen hostname
+export keymap="de-latin1"  # the keyboard layout for the installation
 
 ##############################################################################
 
