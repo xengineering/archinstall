@@ -44,7 +44,6 @@ fi
 
 if [ "$path_to_disk" == "/dev/null" ]; then  # check if a disk is selected
     print_failed "path_to_disk variable has still default value '/dev/null'"
-    exit 1
 fi
 
 if [ "$boot_mode" == "uefi" ]; then
@@ -142,15 +141,41 @@ elif [ "$luks_encryption" == "yes" ];then
 
         print_ok "Formatting for disk encryption and bios/mbr ..."
 
-        print_failed "Sorry, encryption is not ready to use"
-        exit 1  ###
+        # root partition
+        echo -n "$DEFAULT_PASSWORD" | cryptsetup luksFormat ${path_to_disk}2 -
+        echo -n "$DEFAULT_PASSWORD" | cryptsetup open ${path_to_disk}2 main -
+        mkfs.ext4 /dev/mapper/main
+        e2label /dev/mapper/main "root"
+        mount /dev/mapper/main /mnt
+
+        # boot partition
+        mkfs.ext4 ${path_to_disk}1
+        e2label ${path_to_disk}1 "boot"
+        mkdir /mnt/boot
+        mount ${path_to_disk}1 /mnt/boot
 
     elif [ "$boot_mode" == "uefi" ];then
 
         print_ok "Formatting for disk encryption and uefi/gpt ..."
 
-        print_failed "Sorry, encryption is not ready to use"
-        exit 1  ###
+        # root partition
+        echo -n "$DEFAULT_PASSWORD" | cryptsetup luksFormat ${path_to_disk}3 -
+        echo -n "$DEFAULT_PASSWORD" | cryptsetup open ${path_to_disk}3 main -
+        mkfs.ext4 /dev/mapper/main
+        e2label /dev/mapper/main "root"
+        mount /dev/mapper/main /mnt
+        
+        # boot partition
+        mkfs.ext4 ${path_to_disk}2
+        e2label ${path_to_disk}2 "boot"
+        mkdir /mnt/boot
+        mount ${path_to_disk}2 /mnt/boot
+
+        # efi partition
+        mkfs.fat -F32 ${path_to_disk}1
+        fatlabel ${path_to_disk}1 "efi"
+        mkdir /mnt/mnt
+        mount ${path_to_disk}1 /mnt/mnt
 
     fi
 

@@ -98,6 +98,7 @@ export -f print_ok
 function print_failed () {
     # ref. https://en.wikipedia.org/wiki/ANSI_escape_code
     printf "\033[m[ \033[31mFAILED\033[m ] $1\n"
+    exit 7
 }
 export -f print_failed
 
@@ -108,7 +109,6 @@ if ping -w $INTERNET_TEST_PING_TIMEOUT -c 1 $INTERNET_TEST_SERVER; then
     print_ok "Internet connection is ready"
 else
     print_failed "Could not reach INTERNET_TEST_SERVER '$INTERNET_TEST_SERVER'"
-    exit 1
 fi
 
 
