@@ -30,6 +30,7 @@ print_ok "Entering first_stage.sh"
 
 # check bootmode
 
+print_ok "Checking bootmode ..."
 if [ -d "/sys/firmware/efi/efivars" ]; then
     export boot_mode="uefi"
     print_ok "Booted with UEFI"
@@ -67,7 +68,6 @@ n
 p
 w
 EOF
-    print_ok "Partitioned disk for UEFI/GPT"
 
 elif [ "$boot_mode" == "bios" ]; then
     print_ok "Partitioning for BIOS mode ..."
@@ -88,12 +88,10 @@ p
 p
 w
 EOF
-    print_ok "Partitioned disk for BIOS/MBR"
 
-else
-    print_failed "Unknown boot_mode"
-    exit 1
 fi
+
+print_ok "Partitioning done"
 
 
 # format and mount partitions
@@ -102,7 +100,7 @@ if [ "$luks_encryption" == "no" ];then
 
     if [ "$boot_mode" == "bios" ];then
 
-        print_ok "Formatting for no disk encryption and bios/mbr"
+        print_ok "Formatting for no disk encryption and bios/mbr ..."
 
         # root partition
         mkfs.ext4 ${path_to_disk}2
@@ -117,7 +115,7 @@ if [ "$luks_encryption" == "no" ];then
 
     elif [ "$boot_mode" == "uefi" ];then
 
-        print_ok "Formatting for no disk encryption and uefi/gpt"
+        print_ok "Formatting for no disk encryption and uefi/gpt ..."
 
         # root partition
         mkfs.ext4 ${path_to_disk}3
@@ -136,36 +134,29 @@ if [ "$luks_encryption" == "no" ];then
         mkdir /mnt/mnt
         mount ${path_to_disk}1 /mnt/mnt
 
-    else
-        print_failed "Unknown boot_mode"
-        exit 1
     fi
 
 elif [ "$luks_encryption" == "yes" ];then
 
     if [ "$boot_mode" == "bios" ];then
 
-        print_ok "Formatting for disk encryption and bios/mbr"
+        print_ok "Formatting for disk encryption and bios/mbr ..."
 
-        print_failed "Sorry, encryption is not ready to use ..."
+        print_failed "Sorry, encryption is not ready to use"
         exit 1  ###
 
     elif [ "$boot_mode" == "uefi" ];then
 
-        print_ok "Formatting for disk encryption and uefi/gpt"
+        print_ok "Formatting for disk encryption and uefi/gpt ..."
 
-        print_failed "Sorry, encryption is not ready to use ..."
+        print_failed "Sorry, encryption is not ready to use"
         exit 1  ###
 
-    else
-        print_failed "Unknown boot_mode"
-        exit 1
     fi
 
-else
-    print_failed "luks_encryption not 'yes' or 'no'"
-    exit 1
 fi
+
+print_ok "Formatting done"
 
 
 # install packages with pacstrap
