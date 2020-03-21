@@ -87,13 +87,15 @@ export boot_mode="unknown"  # alternatives: "bios" or "uefi"
 
 # functions
 
-print_ok () {
+function print_ok () {
     printf "\033[m[ \033[32mOK\033[m ] $1\n"
 }
+export -f print_ok
 
-print_failed () {
+function print_failed () {
     printf "\033[m[ \033[31mFAILED\033[m ] $1\n"
 }
+export -f print_failed
 
 
 # check internet connection
