@@ -101,7 +101,7 @@ if [ $luks_encryption == "yes" ];then
         crypto_partition="${path_to_disk}2"
     fi
 
-    cryptdevice_uuid=$(lsblk --fs | grep "$(basename $crypto_partition)" | awk '{print $3}')
+    cryptdevice_uuid=$(lsblk --fs | grep "$(basename $crypto_partition)" | awk '{print $4}')
     print_ok "cryptdevice_uuid: $cryptdevice_uuid"
     old_kernel_param_line=$(cat /etc/default/grub | grep "GRUB_CMDLINE_LINUX_DEFAULT")
     print_ok "old_kernel_param_line: $old_kernel_param_line"
