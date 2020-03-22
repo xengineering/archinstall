@@ -23,11 +23,6 @@
 set -e
 
 
-# debug output
-
-print_ok "Entering first_stage.sh"
-
-
 # check bootmode
 
 print_ok "Checking bootmode ..."
@@ -186,16 +181,21 @@ print_ok "Formatting done"
 
 # optimize mirrorlist
 
-print_ok "Optimize pacman mirrorlist ..."
+print_ok "Optimize /etc/pacman.d/mirrorlist ..."
 curl "https://www.archlinux.org/mirrorlist/?country=$pacman_mirror_region&protocol=http&protocol=https&ip_version=4" > /etc/pacman.d/mirrorlist
 sed -i '/#Server = *./s/^#//g' /etc/pacman.d/mirrorlist
+print_ok "/etc/pacman.d/mirrorlist optimized"
+
 
 # install packages with pacstrap
 
+print_ok "Installing Arch Linux packages with 'pacstrap' ..."
 pacstrap /mnt $PACKAGE_LIST
 print_ok "Installed packages"
 
 
 # generate /etc/fstab
 
+print_ok "Generating /etc/fstab ..."
 genfstab -U /mnt >> /mnt/etc/fstab
+print_ok "/etc/fstab generated"

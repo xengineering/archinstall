@@ -10,29 +10,22 @@ Note: There are many Arch Install scripts out there but I wanted to create my ow
 ## Usage
 
 1. Download the Arch Linux .iso file (maybe [here](http://ftp.halifax.rwth-aachen.de/archlinux/iso/latest/)) and verify it.
-2. Write the .iso to an USB stick (maybe with this [tool](https://www.balena.io/etcher/)) and boot the machine from this USB stick.
-3. Download the script with 'curl -L archinstall.xengineering.eu > archinstall.sh'.
-4. Edit the 'settings' section with 'nano archinstall.sh' and leave the nano editor.
-5. Run the script with 'bash archinstall.sh'.
+2. Write the .iso file to an USB stick (maybe with this [tool](https://www.balena.io/etcher/)) and boot the machine from this USB stick (you could also boot a virtual machine with this .iso file).
+3. Change your keyboard layout, if needed (mind the section below).
+4. Download the script with 'curl -L archinstall.xengineering.eu > archinstall.sh'.
+5. Edit the 'settings' section with 'nano archinstall.sh', save (CTRL + o) and leave (CTRL + x) the nano editor.
+6. Run the script with 'bash archinstall.sh'.
 
 
-### Hint for German Users
+### Change your Keyboard Layout
 
 Execute 'loadkeys de-latin1' after booting to live environment, if you want to set a german keyboard layout. You have to type 'z' for 'y' in loadkeys and 'ß' for the '-' sign.
-
-
-### Usage with VirtualBox
-
-1. Create a VirtualBox virtual machine (VM) for 64-bit Arch Linux with the default or customized settings.
-2. Start the VM and provide the .iso file if you are asked to.
-3. You booted the Arch Linux live environment in VirtualBox. Proceed with the normal use of archinstall.
 
 
 ## To Do
 
 (Highest priority first)
 
-- [ ] Optimize mirrorlist
 - [ ] Launch archconfig project for post-installation tasks like desktop, user setup, etc.
 - [ ] Support installation with WiFi (instead of cable connection)
 - [ ] Automate testing
@@ -44,6 +37,7 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 (Last finished task first)
 
+- [x] Optimize mirrorlist
 - [x] Support coloured output
 - [x] Support UEFI and BIOS systems
 - [x] Automatic abort in case of errors

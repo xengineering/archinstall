@@ -65,7 +65,7 @@ export hostname="archlinux"  # select the hostname for your installation
 export pacman_mirror_region="DE"  # select "all" for all regions
 export luks_encryption="no"  # "yes" for full disk encryption, "no" for normal installation
 export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"  # choose your timezone
-export locales_to_generate="de_DE.UTF-8 UTF-8"  # currently just one option
+export locales_to_generate="de_DE.UTF-8 UTF-8"  # currently just one option is allowed
 export language="de_DE.UTF-8"
 export keymap="de-latin1"  # the keyboard layout for the installation
 
@@ -99,7 +99,7 @@ export -f print_ok
 function print_failed () {
     # ref. https://en.wikipedia.org/wiki/ANSI_escape_code
     printf "\033[m[ \033[31mFAILED\033[m ] $1\n"
-    exit 7
+    exit 1
 }
 export -f print_failed
 
@@ -121,6 +121,7 @@ print_ok "Updated system clock"
 
 # download and run first stage
 
+print_ok "Downloading and launching first_stage.sh ..."
 curl $FIRST_STAGE_LINK > /root/first_stage.sh
 bash /root/first_stage.sh
 print_ok "first_stage.sh finished"
@@ -128,7 +129,8 @@ print_ok "first_stage.sh finished"
 
 # download, run and delete second stage
 
+print_ok "Downloading and launching second_stage.sh in chroot environment ..."
 curl $SECOND_STAGE_LINK > /mnt/root/second_stage.sh
 echo "bash /root/second_stage.sh" | arch-chroot /mnt
 rm /mnt/root/second_stage.sh
-print_ok "second_stage.sh finished"
+print_ok "second_stage.sh finished and deleted"
