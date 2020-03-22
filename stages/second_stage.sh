@@ -96,9 +96,9 @@ if [ $luks_encryption == "yes" ];then
     print_ok "Setup of /etc/default/grub for LUKS encryption ..."
 
     if [ "$boot_mode" == "uefi" ]; then
-        crypto_partition=${path_to_disk}3
+        crypto_partition="${path_to_disk}3"
     else
-        crypto_partition=${path_to_disk}2
+        crypto_partition="${path_to_disk}2"
     fi
 
     cryptdevice_uuid=$(lsblk --fs | grep "$(basename $crypto_partition)" | awk '{print $3}')
