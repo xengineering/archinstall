@@ -114,7 +114,7 @@ if [ "$luks_encryption" == "no" ];then
         mkfs.fat -F32 ${path_to_disk}1
         fatlabel ${path_to_disk}1 "efi"
         mkdir /mnt/mnt
-        mount ${path_to_disk}1 /mnt/mnt
+        # do not mount here because of /etc/fstab generation
 
     fi
 
@@ -158,7 +158,7 @@ elif [ "$luks_encryption" == "yes" ];then
         mkfs.fat -F32 ${path_to_disk}1
         fatlabel ${path_to_disk}1 "efi"
         mkdir /mnt/mnt
-        mount ${path_to_disk}1 /mnt/mnt
+        # do not mount here because of /etc/fstab generation
 
     fi
 
@@ -187,3 +187,12 @@ print_ok "Installed packages"
 print_ok "Generating /etc/fstab ..."
 genfstab -U /mnt >> /mnt/etc/fstab
 print_ok "/etc/fstab generated"
+
+
+# mount efi partition after generation of /etc/fstab
+
+if [ "$boot_mode" == "uefi" ];then
+    print_ok "Mounting efi partition after generation of /etc/fstab ..."
+    mount ${path_to_disk}1 /mnt/mnt
+    print_ok "Mounting efi partition after generation of /etc/fstab done"
+fi
