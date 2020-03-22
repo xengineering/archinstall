@@ -83,11 +83,6 @@ export PACKAGE_LIST="base linux linux-firmware grub networkmanager nano"  # mayb
 export DEFAULT_PASSWORD="archinstall"
 
 
-# variables
-
-export boot_mode="unknown"  # alternatives: "bios" or "uefi"
-
-
 # functions
 
 function print_ok () {
@@ -102,6 +97,18 @@ function print_failed () {
     exit 1
 }
 export -f print_failed
+
+
+# check bootmode
+
+print_ok "Checking bootmode ..."
+if [ -d "/sys/firmware/efi/efivars" ]; then
+    export boot_mode="uefi"
+    print_ok "Booted with UEFI"
+else
+    export boot_mode="bios"
+    print_ok "Booted with legacy boot / BIOS"
+fi
 
 
 # check internet connection

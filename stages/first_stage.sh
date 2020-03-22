@@ -23,18 +23,6 @@
 set -e
 
 
-# check bootmode
-
-print_ok "Checking bootmode ..."
-if [ -d "/sys/firmware/efi/efivars" ]; then
-    export boot_mode="uefi"
-    print_ok "Booted with UEFI"
-else
-    export boot_mode="bios"
-    print_ok "Booted with legacy boot / BIOS"
-fi
-
-
 # partition the disk
 
 if [ "$path_to_disk" == "/dev/null" ]; then  # check if a disk is selected
