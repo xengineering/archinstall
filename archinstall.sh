@@ -33,36 +33,19 @@
 set -e
 
 
-# greetings
-
-cat << EOF
-
-#################################################################
-#                                                               #
-#                Arch Linux Installation Script                 #
-#                                                               #
-# archinstall  Copyright (C) 2019  xengineering                 #
-# This program comes with ABSOLUTELY NO WARRANTY.               #
-# This is free software, and you are welcome to redistribute it #
-# under certain conditions. See                                 #
-# <https://www.gnu.org/licenses/gpl-3.0.en.html> for details.   #
-#                                                               #
-#################################################################
-
-EOF
-
-
 ##############################################################################
 
-#                                settings                                    #
+                                ############
+                                # Settings #
+                                ############
 
 # Modify each entry to your needs. Leave every unknown entry as it is.
 # But make sure to EDIT 'path_to_disk'! Run "lsblk" if you are unsure, which
 # is the right one for your machine.
 
-export path_to_disk="/dev/sda"  # select the disk for installation like "/dev/sda"
+export path_to_disk="/dev/null"  # where should Arch Linux be installed (e.g. "/dev/sda")
 export hostname="archlinux"  # select the hostname for your installation
-export pacman_mirror_region="DE"  # select "all" for all regions
+export pacman_mirror_region="DE"  # select "all" for all regions 
 export luks_encryption="no"  # "yes" for full disk encryption, "no" for normal installation
 export path_to_timezone="/usr/share/zoneinfo/Europe/Berlin"  # choose your timezone
 export locales_to_generate="de_DE.UTF-8 UTF-8"  # currently just one option is allowed
@@ -74,12 +57,12 @@ export keymap="de-latin1"  # the keyboard layout for the installation
 
 # constants
 
-export BRANCH="devel"  # possible alternatives: "devel" or "feature_<myfeature>"
+export BRANCH="master"  # possible alternatives: "devel" or "feature_<myfeature>"
 export INTERNET_TEST_SERVER="archlinux.org"
 export INTERNET_TEST_PING_TIMEOUT=1  # in seconds
 export FIRST_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/first_stage.sh"
 export SECOND_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/second_stage.sh"
-export PACKAGE_LIST="base linux linux-firmware grub networkmanager nano"  # maybe this is requiered: efibootmgr
+export PACKAGE_LIST="base linux linux-firmware grub networkmanager nano"
 export DEFAULT_PASSWORD="archinstall"
 
 
@@ -97,6 +80,25 @@ function print_failed () {
     exit 1
 }
 export -f print_failed
+
+
+# greetings
+
+cat << EOF
+
+#################################################################
+#                                                               #
+#                Arch Linux Installation Script                 #
+#                                                               #
+# archinstall  Copyright (C) 2019  xengineering                 #
+# This program comes with ABSOLUTELY NO WARRANTY.               #
+# This is free software, and you are welcome to redistribute it #
+# under certain conditions. See                                 #
+# <https://www.gnu.org/licenses/gpl-3.0.en.html> for details.   #
+#                                                               #
+#################################################################
+
+EOF
 
 
 # check bootmode

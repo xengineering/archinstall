@@ -13,27 +13,18 @@ Note: There are many Arch Install scripts out there but I wanted to create my ow
 2. Write the .iso file to an USB stick (maybe with this [tool](https://www.balena.io/etcher/)) and boot the machine from this USB stick (you could also boot a virtual machine with this .iso file).
 3. Change your keyboard layout, if needed (mind the section below).
 4. Download the script with 'curl -L archinstall.xengineering.eu > archinstall.sh'.
-5. Edit the 'settings' section with 'nano archinstall.sh', save (CTRL + o) and leave (CTRL + x) the nano editor.
+5. Edit the 'Settings' section with 'nano archinstall.sh', save (CTRL + o) and leave (CTRL + x) the nano editor.
 6. Run the script with 'bash archinstall.sh'.
 
 
 ### Change your Keyboard Layout
 
+#### German Keyboard Layout
+
 Execute 'loadkeys de-latin1' after booting to live environment, if you want to set a german keyboard layout. You have to type 'z' for 'y' in loadkeys and 'ß' for the '-' sign.
 
 
-## To Do
-
-(Highest priority first)
-
-- [ ] Launch archconfig project for post-installation tasks like desktop, user setup, etc.
-- [ ] Support installation with WiFi (instead of cable connection)
-- [ ] Automate testing
-- [ ] Implement 'settings_checker.sh' for better security
-- [ ] Implement 'guided_archinstall.py' for better usability
-
-
-## Done
+## Done / Features
 
 (Last finished task first)
 
@@ -44,3 +35,20 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 - [x] Provide full system encryption with LUKS
 - [x] Automatic partitioning
 - [x] Write first version of archinstall.sh
+
+
+## To Do / Feature Requests
+
+(Highest priority first)
+
+- [ ] Launch archconfig project for post-installation tasks like desktop, user setup, etc.
+- [ ] Support installation with WiFi (instead of cable connection)
+- [ ] Automate testing
+- [ ] Implement 'settings_checker.sh' for better security
+- [ ] Implement 'guided_archinstall.py' for better usability
+
+
+## Bugs to solve
+
+- [ ] Add locale en_US.UTF-8 because it is needed by a software included
+- [ ] Sort mirrors with sed command from [Arch Wiki Mirrors Article](https://wiki.archlinux.org/index.php/Mirrors)
