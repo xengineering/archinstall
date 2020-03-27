@@ -41,11 +41,10 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 (Highest priority first)
 
-- [ ] Launch archconfig project for post-installation tasks like desktop, user setup, etc.
+- [ ] Support archconfig project to install software with meta packages
+- [ ] Implement 'settings_checker.py' for better security
 - [ ] Support installation with WiFi (instead of cable connection)
 - [ ] Automate testing
-- [ ] Implement 'settings_checker.sh' for better security
-- [ ] Implement 'guided_archinstall.py' for better usability
 
 
 ## Bugs to solve
