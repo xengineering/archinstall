@@ -62,7 +62,7 @@ export INTERNET_TEST_SERVER="archlinux.org"
 export INTERNET_TEST_PING_TIMEOUT=1  # in seconds
 export FIRST_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/first_stage.sh"
 export SECOND_STAGE_LINK="https://raw.githubusercontent.com/xengineering/archinstall/$BRANCH/stages/second_stage.sh"
-export PACKAGE_LIST="base linux linux-firmware grub networkmanager nano"
+export PACKAGE_LIST="base linux linux-firmware grub networkmanager nano git base-devel"
 export DEFAULT_PASSWORD="archinstall"
 
 
