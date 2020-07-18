@@ -12,7 +12,7 @@ Note: There are many Arch Install scripts out there but I wanted to create my ow
 1. Download the Arch Linux .iso file (maybe [here](http://ftp.halifax.rwth-aachen.de/archlinux/iso/latest/)) and verify it.
 2. Write the .iso file to an USB stick (maybe with this [tool](https://www.balena.io/etcher/)) and boot the machine from this USB stick (you could also boot a virtual machine with this .iso file).
 3. Change your keyboard layout, if needed (mind the section below).
-4. Download the script with 'curl -L archinstall.xengineering.eu > archinstall.sh'.
+4. Download the script with 'curl -L xengineering.eu/archinstall.sh > archinstall.sh'.
 5. Edit the 'Settings' section with 'nano archinstall.sh', save (CTRL + o) and leave (CTRL + x) the nano editor.
 6. Run the script with 'bash archinstall.sh'.
 
