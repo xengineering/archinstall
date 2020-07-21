@@ -41,8 +41,10 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 (Highest priority first)
 
-- [ ] Support archconfig project to install software with meta packages
-- [ ] Implement 'settings_checker.py' for better security
+- [ ] Support NVMe drives
+- [ ] Allow user to modify first\_stage.sh and second\_stage.sh
+- [ ] Support import of GPG keys for own software repositories
+- [ ] Support adding own software repositories
 - [ ] Support installation with WiFi (instead of cable connection)
 - [ ] Automate testing
 
@@ -51,3 +53,4 @@ Execute 'loadkeys de-latin1' after booting to live environment, if you want to s
 
 - [ ] Add locale en_US.UTF-8 because it is needed by a software included
 - [ ] Sort mirrors with sed command from [Arch Wiki Mirrors Article](https://wiki.archlinux.org/index.php/Mirrors)
+
