@@ -170,7 +170,7 @@ print_ok "Formatting done"
 # optimize mirrorlist
 
 print_ok "Optimize /etc/pacman.d/mirrorlist ..."
-curl "https://www.archlinux.org/mirrorlist/?country=$pacman_mirror_region&protocol=http&protocol=https&ip_version=4" > /etc/pacman.d/mirrorlist
+curl "https://archlinux.org/mirrorlist/?country=$pacman_mirror_region&protocol=http&protocol=https&ip_version=4" > /etc/pacman.d/mirrorlist
 sed -i '/#Server = *./s/^#//g' /etc/pacman.d/mirrorlist
 print_ok "/etc/pacman.d/mirrorlist optimized"
 
